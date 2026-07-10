@@ -1,0 +1,191 @@
+/* ============================================================
+   Navbar — floating neumorphic pill
+   ------------------------------------------------------------
+   The pill is its own soft-machined surface (derived from the
+   page's --muted blues) so the raised/inset button shadows read
+   correctly over both the navy hero and the white sections.
+   ============================================================ */
+.navbar {
+  /* Same blue family as the hero's #2f5f9e, one step darker so the
+     pill still separates from it */
+  --pill-hi: #34619c;
+  --pill-lo: #264a7c;
+  --pill-text: #dfe8f4;
+  --neu-light: rgba(110, 156, 212, 0.5);
+  --neu-dark: rgba(10, 24, 45, 0.55);
+
+  position: fixed;
+  inset: 16px 0 auto 0;
+  z-index: 50;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.navbar__pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0.5rem 0.6rem 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--pill-hi), var(--pill-lo));
+  box-shadow:
+    0 12px 32px rgba(7, 17, 33, 0.4),
+    0 2px 6px rgba(7, 17, 33, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.navbar .brand__text strong {
+  font-size: 1.2rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.nav > a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.48rem 1.05rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  color: var(--pill-text);
+  background: linear-gradient(180deg, var(--pill-hi), var(--pill-lo));
+  box-shadow:
+    -3px -3px 6px var(--neu-light),
+    3px 3px 8px var(--neu-dark);
+  transition: box-shadow 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.nav > a:hover {
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow:
+    -4px -4px 8px var(--neu-light),
+    4px 4px 10px rgba(7, 17, 33, 0.7);
+}
+
+.nav > a:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 2px 2px 6px rgba(7, 17, 33, 0.6),
+    inset -2px -2px 6px var(--neu-light);
+}
+
+.nav > a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav > .nav__cta {
+  color: var(--ink);
+  background: linear-gradient(180deg, #ffb945, var(--accent));
+  box-shadow:
+    -3px -3px 6px var(--neu-light),
+    3px 3px 8px var(--neu-dark);
+}
+
+.nav > .nav__cta:hover {
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+}
+
+.nav > .nav__cta:active {
+  box-shadow:
+    inset 2px 2px 6px rgba(148, 94, 5, 0.45),
+    inset -2px -2px 6px rgba(255, 214, 140, 0.6);
+}
+
+/* ---------- Hamburger (neumorphic circle) ---------- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--pill-hi), var(--pill-lo));
+  box-shadow:
+    -3px -3px 6px var(--neu-light),
+    3px 3px 8px var(--neu-dark);
+}
+
+.nav-toggle:active {
+  box-shadow:
+    inset 2px 2px 6px rgba(7, 17, 33, 0.6),
+    inset -2px -2px 6px var(--neu-light);
+}
+
+.nav-toggle span {
+  width: 20px;
+  height: 2.5px;
+  background: var(--pill-text);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded='true'] span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded='true'] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded='true'] span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ---------- Collapsed menu: floating card below the pill ---------- */
+@media (max-width: 920px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav {
+    position: fixed;
+    top: 88px;
+    left: 16px;
+    right: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+    padding: 1.1rem;
+    border-radius: 28px;
+    background: linear-gradient(180deg, var(--pill-hi), var(--pill-lo));
+    box-shadow:
+      0 18px 44px rgba(7, 17, 33, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  }
+
+  .nav--open {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav > a {
+    justify-content: center;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+  }
+}

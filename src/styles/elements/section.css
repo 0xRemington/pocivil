@@ -1,0 +1,44 @@
+/* ---------- Section shells & headings ---------- */
+.section {
+  padding: 5.5rem 0;
+}
+
+.section--muted {
+  background: var(--muted);
+}
+
+.section--dark {
+  background: var(--navy);
+  color: #eaf0f7;
+}
+
+.section__head {
+  max-width: 720px;
+  margin: 0 auto 3.2rem;
+  text-align: center;
+}
+
+.section__title {
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  text-transform: uppercase;
+}
+
+.section--dark .section__title {
+  color: #fff;
+}
+
+.section__sub {
+  margin-top: 1rem;
+  color: var(--slate);
+  font-size: 1.05rem;
+}
+
+.section--dark .section__sub {
+  color: #c8d4e2;
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 4rem 0;
+  }
+}

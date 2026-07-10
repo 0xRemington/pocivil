@@ -1,0 +1,32 @@
+/* ---------- Brand lockup (Navbar & Footer) ---------- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  font-family: var(--font-head);
+  color: #fff;
+}
+
+.brand__text strong {
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+}
+
+.brand__text small {
+  font-size: 0.74rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}

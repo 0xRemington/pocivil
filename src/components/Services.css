@@ -1,0 +1,247 @@
+/* ============================================================
+   Services cards — "neo surface" tiles (adapted from
+   https://codepen.io/Kan3an/pen/YPpyVWd) in the site's blue
+   palette, shown as slides of the tilted carousel
+   (styles/elements/Carousel.jsx). Gradient surface with an
+   inset glass plane; the active card tilts in 3D on hover.
+   ============================================================ */
+.carousel__slide .card {
+  height: 100%;
+}
+
+.card {
+  --card-depth: 22px;
+  --card-radius: 48px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(135deg, var(--navy-600) 0%, var(--navy) 45%, var(--ink) 100%);
+  border-radius: var(--card-radius);
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease;
+  box-shadow:
+    rgba(20, 38, 61, 0) 40px 50px 25px -40px,
+    rgba(20, 38, 61, 0.28) 0 25px 25px -5px;
+}
+
+/* The tilt is triggered by hovering the slide's (static) box, not the
+   card itself — a tilting card moves out from under the pointer and
+   re-triggers in a flicker loop when approached from the edges that
+   rotate away. Hover-capable pointers only, so taps don't stick. */
+@media (hover: hover) {
+  .carousel__slide.is-active:hover .card {
+    transform: rotate3d(1, 1, 0, 28deg);
+    box-shadow:
+      rgba(20, 38, 61, 0.45) 28px 48px 28px -38px,
+      rgba(245, 166, 35, 0.12) 0 0 60px -10px,
+      rgba(20, 38, 61, 0.15) 0 25px 35px 0;
+  }
+
+  /* Tilted neighbours hop straight up instead: the raise happens
+     inside the slide's rotateY, which leaves the vertical axis
+     untouched, so it reads correctly at every fan angle. The shadow
+     drops away below to sell the lift. */
+  .carousel__slide:not(.is-active):hover .card {
+    transform: translateY(-16px);
+    box-shadow:
+      rgba(20, 38, 61, 0) 40px 70px 25px -40px,
+      rgba(20, 38, 61, 0.32) 0 38px 32px -6px;
+  }
+}
+
+/* Slab thickness: a back face, flat walls along the straight edges,
+   and segmented arc strips wrapping each rounded corner (geometry
+   computed in Services.jsx) — the tile reads as one closed solid
+   block from any angle the carousel (or the hover tilt) turns it,
+   using ~2 dozen tiny composited planes per card */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(135deg, #1e3c66 0%, var(--ink) 100%);
+  transform: translateZ(calc(-1 * var(--card-depth)));
+  box-shadow: rgba(20, 38, 61, 0.35) 0 22px 30px -12px;
+}
+
+.card__edge {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Straight-edge walls stop at the corner radius; the corner segments
+   carry the depth around the curves themselves */
+.card__edge--left,
+.card__edge--right {
+  top: var(--card-radius);
+  bottom: var(--card-radius);
+  width: var(--card-depth);
+}
+
+.card__edge--left {
+  left: 0;
+  transform-origin: left center;
+  transform: rotateY(90deg);
+  background: linear-gradient(180deg, #2a568f 0%, #1e3c66 100%);
+}
+
+.card__edge--right {
+  right: 0;
+  transform-origin: right center;
+  transform: rotateY(-90deg);
+  background: linear-gradient(180deg, #1e3c66 0%, var(--ink) 100%);
+}
+
+.card__edge--top,
+.card__edge--bottom {
+  left: var(--card-radius);
+  right: var(--card-radius);
+  height: var(--card-depth);
+}
+
+.card__edge--top {
+  top: 0;
+  transform-origin: center top;
+  transform: rotateX(-90deg);
+  background: linear-gradient(90deg, #2a568f 0%, #24497c 100%);
+}
+
+.card__edge--bottom {
+  bottom: 0;
+  transform-origin: center bottom;
+  transform: rotateX(90deg);
+  background: linear-gradient(90deg, #1a3559 0%, var(--ink) 100%);
+}
+
+/* Corner wrappers: one per corner, mirrored from the top-left
+   geometry; each holds the arc segment strips laid out by
+   Services.jsx in units of --card-radius */
+.card__corner {
+  position: absolute;
+  width: var(--card-radius);
+  height: var(--card-radius);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.card__corner--tl {
+  top: 0;
+  left: 0;
+  --corner-color: #2a568f;
+}
+
+.card__corner--tr {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+  --corner-color: #22456f;
+}
+
+.card__corner--bl {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+  --corner-color: #1c3a5f;
+}
+
+.card__corner--br {
+  bottom: 0;
+  right: 0;
+  transform: scale(-1, -1);
+  --corner-color: var(--ink);
+}
+
+.card__seg {
+  position: absolute;
+  height: var(--card-depth);
+  transform-origin: top left;
+  background: var(--corner-color);
+}
+
+/* Tilted (non-active) tiles: flatten the floating glass and content
+   onto the face so nothing hovers off the slab when seen side-on */
+.carousel__slide:not(.is-active) .card__glass {
+  transform: translate3d(0, 0, 1px);
+}
+
+.carousel__slide:not(.is-active) .card__content {
+  transform: translate3d(0, 0, 2px);
+}
+
+/* Inset glass plane with the swooping top-right curve */
+.card__glass {
+  position: absolute;
+  inset: 8px;
+  border-radius: calc(var(--card-radius) - 4px);
+  border-top-right-radius: 100%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.82) 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+  transform: translate3d(0, 0, 25px);
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.card__content {
+  position: relative;
+  z-index: 3;
+  transform: translate3d(0, 0, 26px);
+  transition: transform 0.5s ease-in-out;
+  padding: 0 1.85rem 2.4rem;
+}
+
+.card__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: var(--navy);
+  color: #fff;
+  margin-bottom: 1.3rem;
+  box-shadow: rgba(20, 38, 61, 0.3) 0 10px 18px -8px;
+}
+
+.card__title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 0.7rem;
+}
+
+.card__text {
+  color: rgba(20, 38, 61, 0.82);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  /* walls, corner segments, and the glass inset all track the radius */
+  .card {
+    --card-radius: 38px;
+  }
+
+  .card__content {
+    padding: 0 1.4rem 1.8rem;
+  }
+
+  .card__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+  }
+
+  .card__title {
+    font-size: 1.15rem;
+  }
+
+  .card__text {
+    font-size: 0.85rem;
+  }
+}

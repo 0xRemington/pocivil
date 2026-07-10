@@ -1,0 +1,99 @@
+/* ---------- Tilted carousel ---------- */
+/* Companion styles for elements/Carousel.jsx. The stage is exactly one
+   slide wide and centered; the cells fan out from it on both sides and
+   are clipped at the .carousel edges so tilted neighbours stay visible
+   without causing horizontal page scroll. */
+
+.carousel {
+  --carousel-slide-w: 320px;
+  overflow: hidden;
+  padding: 2rem 0 0.5rem;
+}
+
+.carousel__stage {
+  width: var(--carousel-slide-w);
+  margin: 0 auto;
+}
+
+.carousel__track {
+  position: relative;
+  aspect-ratio: 3 / 4;
+}
+
+.carousel__cell {
+  position: absolute;
+  inset: 0;
+  perspective: 800px;
+  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+
+.carousel__slide {
+  width: var(--carousel-slide-w);
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+  will-change: transform;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.22, 1.1, 0.36, 1);
+}
+
+/* ---------- Controls: pill bar with arrows + dots ---------- */
+.carousel__controls {
+  width: fit-content;
+  margin: 2.2rem auto 0;
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--slate);
+  border-radius: 999px;
+  background: rgba(232, 239, 250, 0.5);
+  border: 1px solid rgba(219, 228, 240, 0.8);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(4px);
+}
+
+.carousel__arrow {
+  display: grid;
+  place-items: center;
+  padding: 0.5rem;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.carousel__arrow:hover {
+  color: var(--ink);
+}
+
+.carousel__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.carousel__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.3;
+  cursor: pointer;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.carousel__dot.is-active {
+  width: 28px;
+  opacity: 1;
+}
+
+@media (max-width: 560px) {
+  .carousel {
+    --carousel-slide-w: 250px;
+  }
+}
