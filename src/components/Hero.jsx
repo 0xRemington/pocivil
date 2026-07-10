@@ -1,10 +1,22 @@
 import { company } from '../data/site'
+import BlueprintModel from './BlueprintModel'
 import './Hero.css'
 
 export default function Hero() {
   return (
     <section className="hero" id="top">
       <div className="hero__bg" aria-hidden="true" />
+      <div className="hero__sheet" aria-hidden="true">
+        <div className="hero__model">
+          <BlueprintModel />
+        </div>
+        <div className="hero__titleblock">
+          <span className="hero__tb-name">{company.name}</span>
+          <span>DWG · Foundation plan — typ.</span>
+          <span>Scale 3/16" = 1'-0"</span>
+          <span className="hero__tb-sheet">S-101</span>
+        </div>
+      </div>
       <div className="container hero__inner">
         <h1 className="hero__title">
           We move earth, raise structures,

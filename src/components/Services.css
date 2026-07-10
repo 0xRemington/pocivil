@@ -42,7 +42,8 @@
      inside the slide's rotateY, which leaves the vertical axis
      untouched, so it reads correctly at every fan angle. The shadow
      drops away below to sell the lift. */
-  .carousel__slide:not(.is-active):hover .card {
+  .carousel__slide:not(.is-active):hover .card,
+  .carousel__cell--far:hover .card {
     transform: translateY(-16px);
     box-shadow:
       rgba(20, 38, 61, 0) 40px 70px 25px -40px,

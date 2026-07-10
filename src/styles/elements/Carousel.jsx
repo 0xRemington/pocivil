@@ -118,10 +118,15 @@ export default function Carousel({ slides, startIndex }) {
             // row; teleport it instead (it repositions outside the view).
             const wrapped = Math.abs(d - dPrev) > ringSize / 2
             const tilt = Math.max(-MAX_TILT, Math.min(MAX_TILT, d * -ROTATION))
+            // Steeply tilted slides project a narrow sliver, so their
+            // untransformed cell box doubles as an enlarged hover/click
+            // target; the center three keep the slide as the target.
+            const far = Math.abs(d) >= 2
             return (
               <div
-                className="carousel__cell"
+                className={`carousel__cell${far ? ' carousel__cell--far' : ''}`}
                 key={cell}
+                onClick={far ? () => setActiveCell(cell) : undefined}
                 style={{
                   transform: `translateX(${d * 100}%)`,
                   zIndex: ringSize - Math.abs(d),

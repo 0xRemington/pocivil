@@ -14,6 +14,96 @@
   position: absolute;
   inset: 0;
   background-color: var(--navy);
+  /* Drafting grid: fine squares with a heavier line every fifth */
+  background-image:
+    radial-gradient(ellipse at 68% 42%, rgba(255, 255, 255, 0.05), transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.085) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.085) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    110px 110px,
+    110px 110px,
+    22px 22px,
+    22px 22px;
+}
+
+.hero__bg::after {
+  /* Cyanotype vignette — blueprints darken toward the edges */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(9, 24, 46, 0.35));
+}
+
+/* --- Drawing sheet frame, model, and title block ------------- */
+.hero__sheet {
+  position: absolute;
+  inset: clamp(12px, 2vw, 26px);
+  z-index: 1;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+}
+
+.hero__sheet::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.hero__model {
+  position: absolute;
+  top: 6%;
+  right: 4%;
+  bottom: 10%;
+  width: 52%;
+}
+
+.hero__model-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero__titleblock {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  min-width: 218px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-right: 0;
+  border-bottom: 0;
+  background: rgba(23, 51, 90, 0.55);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(234, 242, 255, 0.75);
+}
+
+.hero__titleblock span {
+  padding: 0.34rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.hero__titleblock span:last-child {
+  border-bottom: 0;
+}
+
+.hero__tb-name {
+  color: rgba(234, 242, 255, 0.95);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.hero__tb-sheet {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: rgba(234, 242, 255, 0.95);
 }
 
 .hero__inner {
@@ -88,9 +178,32 @@
   font-weight: 700;
 }
 
+@media (max-width: 1280px) {
+  .hero__model {
+    width: 44%;
+    top: 12%;
+    bottom: 16%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .hero__model,
+  .hero__titleblock {
+    display: none;
+  }
+}
+
 @media (max-width: 760px) {
   .hero__inner {
     padding-top: 8rem;
+  }
+
+  .hero__sheet {
+    inset: 10px;
+  }
+
+  .hero__sheet::before {
+    display: none;
   }
 }
 
