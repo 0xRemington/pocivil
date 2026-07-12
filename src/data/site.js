@@ -57,35 +57,35 @@ export const services = [
 
 export const projects = [
   {
-    title: 'Interstate 45 Corridor Widening',
-    category: 'Highways',
-    scope: '8.4 miles · $112M',
+    title: 'Lorem Ipsum Dolor Amet',
+    category: 'Lorem',
+    scope: 'Consectetur · Adipiscing',
     blurb:
-      'Added two managed lanes in each direction with reconstructed interchanges while maintaining live traffic flow.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     accent: '#f5a623',
   },
   {
-    title: 'Bayou Crossing Bridge Replacement',
-    category: 'Structures',
-    scope: '1,240 LF span · $46M',
+    title: 'Consectetur Adipiscing Elit',
+    category: 'Ipsum',
+    scope: 'Tempor · Incididunt',
     blurb:
-      'Replaced an aging two-lane crossing with a four-lane precast structure delivered three weeks ahead of schedule.',
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     accent: '#3da5d9',
   },
   {
-    title: 'Northgate Logistics Park',
-    category: 'Site Development',
-    scope: '310 acres · $38M',
+    title: 'Sed Do Eiusmod Tempor',
+    category: 'Dolor',
+    scope: 'Labore · Dolore',
     blurb:
-      'Mass grading, detention, and utility infrastructure for a regional distribution campus on a fast-track timeline.',
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur.',
     accent: '#5aa469',
   },
   {
-    title: 'Regional Water Transmission Main',
-    category: 'Utilities',
-    scope: '14 miles · $61M',
+    title: 'Ullamco Laboris Nisi',
+    category: 'Amet',
+    scope: 'Veniam · Nostrud',
     blurb:
-      'Installed 54-inch transmission main through dense urban corridors using trenchless boring under rail and highways.',
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     accent: '#c0563b',
   },
 ]
@@ -93,50 +93,50 @@ export const projects = [
 export const process = [
   {
     step: '01',
-    title: 'Preconstruction',
+    title: 'Lorem Ipsum',
     description:
-      'Constructability reviews, estimating, and scheduling that surface risk before a single machine moves.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
   },
   {
     step: '02',
-    title: 'Engineering & Planning',
+    title: 'Dolor Adipiscing',
     description:
-      'Survey, utility coordination, and traffic-control design built around your community and stakeholders.',
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.',
   },
   {
     step: '03',
-    title: 'Self-Perform Execution',
+    title: 'Eiusmod Tempor',
     description:
-      'Our own crews and fleet keep quality, safety, and schedule under one accountable roof.',
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.',
   },
   {
     step: '04',
-    title: 'Closeout & Handover',
+    title: 'Cupidatat Proident',
     description:
-      'Punch-list discipline, as-builts, and warranty support that protect your investment long after we leave.',
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.',
   },
 ]
 
 export const values = [
   {
-    title: 'Self-Perform Strength',
+    title: 'Lorem Ipsum Dolor',
     description:
-      'A 180-piece owned fleet and skilled in-house crews mean fewer subcontractors and more control over your outcome.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
   },
   {
-    title: 'Safety Without Compromise',
+    title: 'Consectetur Adipiscing',
     description:
-      'An industry-leading EMR and a zero-incident culture protect our people and your site every single day.',
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   },
   {
-    title: 'On-Time, On-Budget',
+    title: 'Sed Do Eiusmod',
     description:
-      'Disciplined preconstruction and real-time cost tracking deliver predictable results on complex schedules.',
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
   },
   {
-    title: 'Built to Last',
+    title: 'Ullamco Laboris',
     description:
-      'We build infrastructure measured in decades, not deadlines — with quality that earns repeat clients.',
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.',
   },
 ]
 

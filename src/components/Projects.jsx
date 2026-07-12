@@ -6,11 +6,11 @@ export default function Projects() {
     <section className="section" id="projects">
       <div className="container">
         <div className="section__head">
-          <p className="eyebrow">Featured Work</p>
-          <h2 className="section__title">Infrastructure that carries the region</h2>
+          <p className="eyebrow">Lorem Ipsum</p>
+          <h2 className="section__title">Consectetur adipiscing elit sed do</h2>
           <p className="section__sub">
-            A selection of recent projects spanning highways, structures, utilities, and large-scale
-            site development.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
 

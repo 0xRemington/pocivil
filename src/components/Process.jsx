@@ -6,11 +6,11 @@ export default function Process() {
     <section className="section section--muted" id="process">
       <div className="container">
         <div className="section__head">
-          <p className="eyebrow">How We Deliver</p>
-          <h2 className="section__title">One accountable team, start to finish</h2>
+          <p className="eyebrow">Lorem Ipsum</p>
+          <h2 className="section__title">Sed do eiusmod tempor incididunt</h2>
           <p className="section__sub">
-            A disciplined process that removes surprises and keeps your project moving from the first
-            estimate to final handover.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
 

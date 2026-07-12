@@ -1,4 +1,4 @@
-import { values, company } from '../data/site'
+import { values } from '../data/site'
 import './About.css'
 
 export default function About() {
@@ -6,23 +6,23 @@ export default function About() {
     <section className="section section--dark" id="about">
       <div className="container about__grid">
         <div className="about__intro">
-          <p className="eyebrow eyebrow--light">Who We Are</p>
+          <p className="eyebrow eyebrow--light">Lorem Ipsum</p>
           <h2 className="section__title">
-            A builder's company, run by people who came up through the field.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
           </h2>
           <p className="about__text">
-            Founded in {company.founded}, {company.name} grew from a single grading crew into a
-            full-service heavy civil contractor. We still operate the way we started — owners on the
-            jobsite, decisions made fast, and a crew that takes pride in work that holds up under
-            traffic, weather, and time.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure
+            dolor in reprehenderit.
           </p>
           <p className="about__text">
-            Because we self-perform the majority of our scope, we own the schedule and the quality.
-            That accountability is why public agencies and private developers keep bringing us
-            back.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit
+            voluptatem accusantium doloremque.
           </p>
           <a href="#contact" className="btn btn--accent">
-            Start a Conversation
+            Lorem Ipsum Dolor
           </a>
         </div>
 

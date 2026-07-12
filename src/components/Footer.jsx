@@ -1,4 +1,3 @@
-import { company, nav } from '../data/site'
 import './Footer.css'
 
 export default function Footer() {
@@ -24,30 +23,38 @@ export default function Footer() {
               <small>Heavy Civil</small>
             </span>
           </div>
-          <p className="footer__tag">{company.tagline}</p>
+          <p className="footer__tag">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
+          </p>
         </div>
 
         <div className="footer__col">
-          <h4>Explore</h4>
+          <h4>Lorem</h4>
           <ul>
-            {nav.map((item) => (
-              <li key={item.href}>
-                <a href={item.href}>{item.label}</a>
-              </li>
-            ))}
+            <li>
+              <a href="#services">Lorem Ipsum</a>
+            </li>
+            <li>
+              <a href="#projects">Dolor Amet</a>
+            </li>
+            <li>
+              <a href="#about">Consectetur</a>
+            </li>
+            <li>
+              <a href="#process">Adipiscing</a>
+            </li>
+            <li>
+              <a href="#contact">Eiusmod</a>
+            </li>
           </ul>
         </div>
 
         <div className="footer__col">
-          <h4>Contact</h4>
+          <h4>Ipsum</h4>
           <ul>
-            <li>
-              <a href={`tel:${company.phone.replace(/[^\d]/g, '')}`}>{company.phone}</a>
-            </li>
-            <li>
-              <a href={`mailto:${company.email}`}>{company.email}</a>
-            </li>
-            <li>{company.address}</li>
+            <li>Consectetur adipiscing</li>
+            <li>lorem@ipsum.com</li>
+            <li>Ut labore et dolore magna aliqua</li>
           </ul>
         </div>
       </div>
@@ -55,9 +62,9 @@ export default function Footer() {
       <div className="footer__bar">
         <div className="container footer__bar-inner">
           <span>
-            © {new Date().getFullYear()} {company.name}. All rights reserved.
+            © {new Date().getFullYear()} Lorem Ipsum Dolor. Sit amet consectetur.
           </span>
-          <span>Bonded · Insured · DBE/MBE Certified</span>
+          <span>Adipiscing · Elit · Sed Do Eiusmod</span>
         </div>
       </div>
     </footer>

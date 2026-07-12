@@ -187,8 +187,29 @@
 }
 
 @media (max-width: 1000px) {
-  .hero__model,
+  /* Blueprint reflows into a full-width band beneath the copy.
+     The inner padding-bottom reserves that band, so the text can
+     never run into the model no matter how tall it wraps. */
+  .hero__inner {
+    padding-bottom: calc(clamp(200px, 32vh, 320px) + 4.5rem);
+  }
+
+  .hero__model {
+    top: auto;
+    left: 7%;
+    right: 7%;
+    bottom: 3.75rem;
+    width: auto;
+    height: clamp(200px, 32vh, 320px);
+  }
+
+  /* Compact title block: keep the name and sheet number rows */
   .hero__titleblock {
+    min-width: 0;
+  }
+
+  .hero__titleblock span:nth-child(2),
+  .hero__titleblock span:nth-child(3) {
     display: none;
   }
 }

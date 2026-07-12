@@ -121,13 +121,12 @@ export default function BlueprintModel() {
       const sinA = Math.sin(angle)
       const cosA = Math.cos(angle)
       const f = Math.min(w, h * 1.35) * 2.05
+      const s = f / DIST // orthographic: constant scale so parallel edges stay parallel
       return ([x, y, z]) => {
         const rx = x * cosA - z * sinA
         const rz = x * sinA + z * cosA
         const py = y - Y_CENTER
         const ry = py * cosP - rz * sinP
-        const rzz = py * sinP + rz * cosP
-        const s = f / (rzz + DIST)
         return [w / 2 + rx * s, h / 2 - ry * s]
       }
     }
