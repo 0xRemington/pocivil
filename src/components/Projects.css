@@ -1,5 +1,12 @@
 /* ============================================================
-   Projects
+   Projects — case-study tiles riding the same slab cards as the
+   services carousel and About values (styles/elements/Card.jsx):
+   rounded 3D slab, springy hover tilt. The face keeps its flat
+   2D layout — a header that reads as a civil drawing sheet (fine
+   drafting grid, thin white frame, ghosted plan-view detail
+   number, monospace title block) over a paper body. The
+   per-project `accent` (--accent-project) is the sole colour
+   highlight — glow, detail number, sheet number, hover halo.
    ============================================================ */
 .projects {
   display: grid;
@@ -7,66 +14,236 @@
   gap: 1.8rem;
 }
 
+/* Static stage: it gives the card its perspective and, because it
+   doesn't move, it can carry the hover without the tilting card
+   sliding out from under the pointer (see the note in Services.css) */
 .project {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  perspective: 1100px;
+  display: flex;
+}
+
+/* Squared off a little from the carousel's lozenges — these are the
+   largest tiles on the page and carry a rectangular drawing sheet */
+.project .card {
+  --card-radius: 34px;
+  --card-depth: 18px;
+  flex: 1;
+}
+
+/* White slab: these tiles sit on the white page, so the navy solid
+   is recast in paper tones — the same lit-to-shadowed ramp as the
+   navy walls (top/left catch light, bottom/right fall away), just
+   translated into cool greys that stay visible against the page */
+.project .card {
+  background: linear-gradient(135deg, #f6f8fc 0%, #eaeff7 45%, #dce4f0 100%);
+}
+
+.project .card::before {
+  background: linear-gradient(135deg, #d3dce9 0%, #b6c3d6 100%);
+  box-shadow: rgba(20, 38, 61, 0.22) 0 22px 30px -12px;
+}
+
+.project .card__edge--left {
+  background: linear-gradient(180deg, #e2e9f3 0%, #d3dce9 100%);
+}
+
+.project .card__edge--right {
+  background: linear-gradient(180deg, #d3dce9 0%, #b6c3d6 100%);
+}
+
+.project .card__edge--top {
+  background: linear-gradient(90deg, #e9eef6 0%, #e2e9f3 100%);
+}
+
+.project .card__edge--bottom {
+  background: linear-gradient(90deg, #c6d1e1 0%, #b6c3d6 100%);
+}
+
+.project .card__corner--tl {
+  --corner-color: #e2e9f3;
+}
+
+.project .card__corner--tr {
+  --corner-color: #d3dce9;
+}
+
+.project .card__corner--bl {
+  --corner-color: #c6d1e1;
+}
+
+.project .card__corner--br {
+  --corner-color: #b6c3d6;
+}
+
+/* The drawing sheet itself plays the part of the services glass
+   plane: an opaque sheet fully covering the same inset, so the
+   translucent plane underneath is retired */
+.project .card__glass {
+  display: none;
+}
+
+/* The whole face floats above the slab exactly like the services
+   glass (8px inset, raised 26px in Z), so the hover tilt reveals the
+   navy rim and the gap beneath the sheet — the same layered depth the
+   carousel tiles show */
+.project .card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 8px;
+  border-radius: calc(var(--card-radius) - 4px);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transform: translate3d(0, 0, 26px);
+  transition: transform 0.5s ease-in-out;
 }
 
-.project:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
+/* The carousel's exact hover tilt — same angle, same shadow stack —
+   with each project's accent standing in for the amber of the glow
+   layer. Hover-capable pointers only, so taps don't stick. */
+@media (hover: hover) {
+  .project:hover .card {
+    transform: rotate3d(1, 1, 0, 28deg);
+    box-shadow:
+      rgba(20, 38, 61, 0.45) 28px 48px 28px -38px,
+      color-mix(in srgb, var(--accent-project, var(--accent)) 12%, transparent) 0 0 60px -10px,
+      rgba(20, 38, 61, 0.15) 0 25px 35px 0;
+  }
 }
 
+/* --- Drawing sheet header ------------------------------------ */
 .project__visual {
-  height: 190px;
   position: relative;
-  background:
-    linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%);
+  height: 210px;
+  flex-shrink: 0;
   overflow: hidden;
+  background: linear-gradient(150deg, var(--navy-600) 0%, var(--navy) 42%, var(--ink) 100%);
 }
 
+/* Drafting grid: fine squares with a heavier line every fifth */
 .project__visual::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size:
+    100px 100px,
+    100px 100px,
+    20px 20px,
+    20px 20px;
 }
 
-.project__visual::after {
-  content: '';
+/* Accent wash bleeding in from the lower-right corner */
+.project__glow {
   position: absolute;
+  z-index: 0;
   right: -40px;
-  bottom: -40px;
-  width: 180px;
-  height: 180px;
+  bottom: -30px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: var(--accent-project, var(--accent));
-  opacity: 0.5;
-  filter: blur(6px);
+  opacity: 0.45;
+  filter: blur(8px);
+  transition: opacity 0.2s ease;
 }
 
-.project__tag {
+.project:hover .project__glow {
+  opacity: 0.6;
+}
+
+/* Ghosted plan-view detail number in the accent colour */
+.project__no {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
   z-index: 2;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--navy);
-  font-size: 0.72rem;
+  top: 0.55rem;
+  left: 1.15rem;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 3.6rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.35rem 0.75rem;
-  border-radius: 6px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--accent-project, var(--accent));
+  opacity: 0.9;
+  /* Legible as a figure without competing with the title block */
+  mix-blend-mode: screen;
 }
 
+/* Thin white sheet frame with a fainter inner rule (as the hero);
+   the top corners follow the slab's radius so the frame stays clear
+   of the rounded clip */
+.project__frame {
+  position: absolute;
+  z-index: 2;
+  inset: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: calc(var(--card-radius) - 14px) calc(var(--card-radius) - 14px) 0 0;
+  pointer-events: none;
+}
+
+.project__frame::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: calc(var(--card-radius) - 19px) calc(var(--card-radius) - 19px) 0 0;
+}
+
+/* Title block: monospace cells seated inside the sheet frame */
+.project__titleblock {
+  position: absolute;
+  z-index: 3;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: stretch;
+  background: rgba(23, 51, 90, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(234, 242, 255, 0.8);
+}
+
+.project__titleblock > span {
+  padding: 0.42rem 0.85rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+.project__tb-cat {
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(234, 242, 255, 0.95);
+}
+
+/* Scope carries the drawing's key figures — the widest cell */
+.project__tb-scope {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project__tb-sheet {
+  border-right: 0;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-project, var(--accent));
+}
+
+/* --- Card body ---------------------------------------------- */
 .project__body {
+  flex: 1;
+  background: var(--paper);
   padding: 1.6rem 1.7rem 1.9rem;
 }
 
@@ -74,14 +251,7 @@
   font-size: 1.5rem;
   text-transform: uppercase;
   line-height: 1.05;
-}
-
-.project__scope {
-  margin: 0.5rem 0 0.8rem;
-  font-weight: 600;
-  color: var(--accent-dark);
-  font-size: 0.92rem;
-  letter-spacing: 0.02em;
+  margin-bottom: 0.7rem;
 }
 
 .project__blurb {
@@ -90,8 +260,48 @@
   font-size: 0.98rem;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 760px) {
+  /* One column on tablets down: full-width sheets stay legible */
   .projects {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .project .card {
+    --card-radius: 28px;
+    --card-depth: 14px;
+  }
+
+  .project__visual {
+    height: 180px;
+  }
+
+  .project__no {
+    font-size: 3rem;
+  }
+
+  .project__titleblock {
+    font-size: 0.58rem;
+  }
+
+  .project__titleblock > span {
+    padding: 0.38rem 0.7rem;
+  }
+
+  .project__tb-sheet {
+    font-size: 0.66rem;
+  }
+
+  .project__body {
+    padding: 1.3rem 1.4rem 1.6rem;
+  }
+
+  .project__title {
+    font-size: 1.3rem;
+  }
+
+  .project__blurb {
+    font-size: 0.92rem;
   }
 }

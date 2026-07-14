@@ -12,6 +12,7 @@
 @import './elements/section.css';
 @import './elements/brand.css';
 @import './elements/carousel.css';
+@import './elements/card.css';
 
 :root {
   /* Palette derived from the hero's steel blue (#2f5f9e) */

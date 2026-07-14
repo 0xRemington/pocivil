@@ -1,7 +1,41 @@
 /* ============================================================
-   About
+   About — self-performed heavy civil, told on a navy drafting
+   sheet. A faint blueprint grid (a darker echo of the hero)
+   backs the section; the value tiles carry monospace sheet
+   numbers and drafting corner ticks. The grid is masked to
+   transparent at top and bottom so the section's outer edges
+   stay solid navy.
    ============================================================ */
+.about {
+  position: relative;
+}
+
+.about__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Fainter than the hero: fine squares with a heavier line every fifth */
+  background-image:
+    radial-gradient(ellipse at 82% 12%, rgba(255, 255, 255, 0.05), transparent 55%),
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100px 100px,
+    100px 100px,
+    20px 20px,
+    20px 20px;
+  /* Keep the top and bottom edges pure navy — the grid only lives in the middle */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 80%, transparent 100%);
+}
+
 .about__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 3.5rem;
@@ -18,31 +52,67 @@
   margin-top: 1.2rem;
 }
 
+/* Drafting annotation echoing the hero's monospace title block */
+.about__meta {
+  margin: 1.8rem 0 0;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(200, 212, 226, 0.6);
+}
+
+/* The value tiles are the same slab cards as the services carousel
+   (styles/elements/Card.jsx), wearing the shared amber skin the dark
+   sections use (.card--amber in elements/card.css — the bid-request
+   form wears it too). Only the geometry is set here. */
 .values {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
+  gap: 1.4rem;
 }
 
+/* Static stage: it gives the card its perspective and, because it
+   doesn't move, it can carry the hover without the tilting card
+   sliding out from under the pointer (see the note in Services.css) */
 .value {
-  background: var(--navy-600);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius);
-  padding: 1.6rem 1.5rem;
-  border-left: 3px solid var(--accent);
+  perspective: 900px;
+  display: flex;
 }
 
-.value__title {
-  font-size: 1.18rem;
-  color: #fff;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
+.value .card {
+  --card-radius: 34px;
+  --card-depth: 16px;
+
+  flex: 1;
+  min-height: 290px;
 }
 
-.value__text {
-  margin: 0;
-  font-size: 0.92rem;
-  color: #d3dfee;
+.value .card__content {
+  padding: 0 1.5rem 1.7rem;
+}
+
+.value .card__title {
+  font-size: 1.15rem;
+}
+
+.value .card__text {
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+/* Hover-capable pointers only, so taps don't leave a tile stuck tilted.
+   Gentler than the carousel's 28deg — four tiles at close quarters. */
+@media (hover: hover) {
+  .value:hover .card {
+    transform: rotate3d(1, 1, 0, 14deg) translateY(-6px);
+    /* Warm halo, not the accent glow the services tiles use — the tile
+       is already the accent, so it spills light instead of catching it */
+    box-shadow:
+      rgba(9, 24, 46, 0.5) 18px 34px 26px -30px,
+      rgba(255, 205, 120, 0.22) 0 0 55px -8px,
+      rgba(9, 24, 46, 0.35) 0 26px 30px -6px;
+  }
 }
 
 @media (max-width: 980px) {
@@ -55,5 +125,15 @@
 @media (max-width: 560px) {
   .values {
     grid-template-columns: 1fr;
+  }
+
+  .value .card {
+    --card-radius: 28px;
+    --card-depth: 14px;
+    min-height: 240px;
+  }
+
+  .value .card__content {
+    padding: 0 1.3rem 1.5rem;
   }
 }

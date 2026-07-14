@@ -1,8 +1,14 @@
+import { company, nav } from '../data/site'
 import './Footer.css'
 
 export default function Footer() {
+  const tel = `tel:${company.phone.replace(/[^\d]/g, '')}`
+  const year = new Date().getFullYear()
+
   return (
     <footer className="footer">
+      <div className="footer__grid-lines" aria-hidden="true" />
+
       <div className="container footer__grid">
         <div className="footer__brand">
           <div className="brand brand--footer">
@@ -23,48 +29,50 @@ export default function Footer() {
               <small>Heavy Civil</small>
             </span>
           </div>
-          <p className="footer__tag">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
+          <p className="footer__tag">{company.tagline}</p>
+          <p className="footer__stamp">
+            Mount Pearl, NL · Est. {company.founded}
           </p>
         </div>
 
-        <div className="footer__col">
-          <h4>Lorem</h4>
+        <nav className="footer__col" aria-label="Footer">
+          <h4>Explore</h4>
           <ul>
-            <li>
-              <a href="#services">Lorem Ipsum</a>
-            </li>
-            <li>
-              <a href="#projects">Dolor Amet</a>
-            </li>
-            <li>
-              <a href="#about">Consectetur</a>
-            </li>
-            <li>
-              <a href="#process">Adipiscing</a>
-            </li>
-            <li>
-              <a href="#contact">Eiusmod</a>
-            </li>
+            {nav.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))}
           </ul>
-        </div>
+        </nav>
 
         <div className="footer__col">
-          <h4>Ipsum</h4>
-          <ul>
-            <li>Consectetur adipiscing</li>
-            <li>lorem@ipsum.com</li>
-            <li>Ut labore et dolore magna aliqua</li>
+          <h4>Contact</h4>
+          <ul className="footer__contact">
+            <li>
+              <a href={tel}>{company.phone}</a>
+            </li>
+            <li>
+              <a href={`mailto:${company.email}`}>{company.email}</a>
+            </li>
+            <li>{company.address}</li>
+            <li>{company.hours}</li>
           </ul>
         </div>
       </div>
 
       <div className="footer__bar">
         <div className="container footer__bar-inner">
-          <span>
-            © {new Date().getFullYear()} Lorem Ipsum Dolor. Sit amet consectetur.
+          {/* Sheet-number tab — echoes the hero title block's "S-101" */}
+          <span className="footer__sheet" aria-hidden="true">
+            G-001
           </span>
-          <span>Adipiscing · Elit · Sed Do Eiusmod</span>
+          <span className="footer__copy">
+            © {year} {company.name}. All rights reserved.
+          </span>
+          <span className="footer__creds">
+            Bonded &amp; Insured · COR™ Certified · OHS Compliant
+          </span>
         </div>
       </div>
     </footer>

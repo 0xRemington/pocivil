@@ -1,5 +1,11 @@
 /* ============================================================
-   Process
+   Process — the four steps read as stations along a survey
+   alignment: a dashed centerline threads node to node across
+   the row, each step annotated like a drafting callout. The
+   callouts sit on the shared slab cards (styles/elements/
+   Card.jsx) skinned as paper blocks, so the light (muted)
+   section keeps its navy/ink-on-paper drafting language while
+   the tiles pick up the depth and tilt of the About values.
    ============================================================ */
 .process {
   display: grid;
@@ -7,31 +13,193 @@
   gap: 1.5rem;
 }
 
+/* Static stage for the slab card's perspective and hover — the same
+   arrangement as the About tiles (see the note in Services.css) */
 .process__step {
-  position: relative;
-  padding: 2rem 1.6rem;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  perspective: 900px;
+  display: flex;
 }
 
+/* The steps are the same slab cards as the services carousel and the
+   About values (styles/elements/Card.jsx), skinned as the drafting
+   sheet itself: a paper block cut from the muted page, its walls
+   falling into the steel-blue of the section lines. The glass pane
+   carries the faint 22px drafting grid the flat tiles had, so the
+   survey callouts still sit on graph paper — just paper with depth. */
+.process__step .card {
+  --card-radius: 28px;
+  --card-depth: 14px;
+
+  /* Paper cast: white on the lit top-left, cooling toward the
+     section's steel-blue lines as the block turns away */
+  --card-face: linear-gradient(135deg, #ffffff 0%, #f6f9fd 45%, #e3ebf6 100%);
+  --card-back: linear-gradient(135deg, #dfe8f4 0%, #b7c6da 100%);
+
+  --card-wall-top: linear-gradient(90deg, #ffffff 0%, #eef3fa 100%);
+  --card-wall-left: linear-gradient(180deg, #ffffff 0%, #dde7f3 100%);
+  --card-wall-right: linear-gradient(180deg, #dde7f3 0%, #bccbde 100%);
+  --card-wall-bottom: linear-gradient(90deg, #cfdbea 0%, #b7c6da 100%);
+
+  --card-corner-tl: #ffffff;
+  --card-corner-tr: #e4ecf6;
+  --card-corner-bl: #d6e1ee;
+  --card-corner-br: #b7c6da;
+
+  /* Near-white glass with the drafting grid printed under it — the
+     grid layers ride behind the white veil so they read at the same
+     barely-there weight as the flat tiles' 0.035 overlay */
+  --card-glass:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.92) 100%)
+      0 0 / 100% 100%,
+    linear-gradient(rgba(20, 38, 61, 0.05) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, rgba(20, 38, 61, 0.05) 1px, transparent 1px) 0 0 / 22px 22px;
+  --card-glass-edge: rgba(255, 255, 255, 0.95);
+  --card-glass-edge-2: rgba(219, 228, 240, 0.9);
+
+  flex: 1;
+  /* Top-anchored, unlike the bottom-anchored services/About cards —
+     the station markers must sit level for the line to join up */
+  justify-content: flex-start;
+  box-shadow:
+    rgba(20, 38, 61, 0) 40px 50px 25px -40px,
+    rgba(20, 38, 61, 0.16) 0 18px 22px -8px;
+}
+
+/* The callouts stack from the top of the tile, not the bottom like
+   the services and About cards */
+.process__step .card__content {
+  padding: 1.7rem 1.5rem 1.9rem;
+}
+
+/* Hover-capable pointers only, so taps don't leave a tile stuck
+   tilted. Same gentle 14deg as the About tiles; the neutral paper
+   slab catches the accent glow the way the services tiles do. */
+@media (hover: hover) {
+  .process__step:hover .card {
+    transform: rotate3d(1, 1, 0, 14deg) translateY(-6px);
+    box-shadow:
+      rgba(20, 38, 61, 0.28) 18px 34px 26px -30px,
+      rgba(245, 166, 35, 0.14) 0 0 55px -8px,
+      rgba(20, 38, 61, 0.18) 0 26px 30px -6px;
+  }
+}
+
+/* --- Alignment marker: station node on the dashed centerline --- */
+.process__marker {
+  position: relative;
+  z-index: 1;
+  height: 42px;
+  margin-bottom: 1rem;
+}
+
+/* The dashed alignment line. It runs out through the card's 1.5rem
+   content padding but stops at the edge of the glass pane (inset 8px),
+   so the segment stays on the tile's front surface and the gaps between
+   tiles are left empty — the line reads as station-to-station across the
+   row without anything floating in between. */
+.process__marker::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: -1rem;
+  right: -1rem;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--navy) 0 9px,
+    transparent 9px 15px
+  );
+  opacity: 0.4;
+}
+
+/* Cap the line at the outer nodes so it starts and ends on a station */
+.process__step:first-child .process__marker::before {
+  left: 50%;
+}
+
+.process__step:last-child .process__marker::before {
+  right: 50%;
+}
+
+.process__sta {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate);
+  white-space: nowrap;
+}
+
+.process__node {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--navy);
+  /* Paper ring punches a clean gap where the line passes under */
+  box-shadow: 0 0 0 4px var(--paper);
+}
+
+.process__node::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* --- Big step numeral, treated as a drafting figure --- */
 .process__num {
-  font-family: var(--font-head);
-  font-size: 2.6rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
+  position: relative;
+  z-index: 1;
   display: block;
-  margin-bottom: 0.8rem;
+  font-family: var(--font-head);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  margin-bottom: 1.1rem;
+}
+
+/* Dimension tick under the numeral — extends and warms on hover */
+.process__num::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  bottom: -0.5rem;
+  width: 32px;
+  height: 3px;
+  background: var(--navy);
+  opacity: 0.25;
+  transition: width 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+.process__step:hover .process__num::after {
+  width: 52px;
+  background: var(--accent);
+  opacity: 1;
 }
 
 .process__title {
-  font-size: 1.3rem;
+  position: relative;
+  z-index: 1;
+  font-size: 1.25rem;
   text-transform: uppercase;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
 }
 
 .process__text {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: var(--slate);
   font-size: 0.94rem;
@@ -40,11 +208,61 @@
 @media (max-width: 980px) {
   .process {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+  }
+
+  /* Re-cap the alignment line at each row's outer nodes */
+  .process__step:nth-child(odd) .process__marker::before {
+    left: 50%;
+    right: -1rem;
+  }
+
+  .process__step:nth-child(even) .process__marker::before {
+    left: -1rem;
+    right: 50%;
   }
 }
 
 @media (max-width: 560px) {
   .process {
     grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .process__step .card {
+    --card-radius: 24px;
+    --card-depth: 12px;
+  }
+
+  .process__step .card__content {
+    padding: 1.5rem 1.3rem 1.7rem;
+  }
+
+  /* Single column: the horizontal alignment reads as a left-hand
+     station stack. Drop the connecting line, left-align the node,
+     and set its label beside it like a surveyed point. */
+  .process__marker {
+    height: 22px;
+    margin-bottom: 1rem;
+  }
+
+  .process__marker::before {
+    display: none;
+  }
+
+  .process__node {
+    top: 11px;
+    left: 7px;
+    transform: translateY(-50%);
+  }
+
+  .process__sta {
+    top: 11px;
+    left: 28px;
+    transform: translateY(-50%);
+  }
+
+  .process__num {
+    font-size: 2.6rem;
   }
 }

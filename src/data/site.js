@@ -2,19 +2,12 @@ export const company = {
   name: 'P.Okeke Heavy Civil',
   shortName: 'P.Okeke',
   tagline: 'Building the foundations that move communities forward.',
-  phone: '(555) 482-7100',
+  phone: '(709) 555-0142',
   email: 'estimating@pokekeheavycivil.com',
-  address: '4200 Industrial Parkway, Houston, TX 77029',
+  address: '42 Industrial Crescent, Mount Pearl, NL A1N 4S2',
   hours: 'Mon–Fri · 6:00 AM – 6:00 PM',
   founded: 2004,
 }
-
-export const stats = [
-  { value: '20+', label: 'Years in business' },
-  { value: '480+', label: 'Projects delivered' },
-  { value: '6.2M', label: 'Cubic yards moved' },
-  { value: '0.61', label: 'EMR safety rating' },
-]
 
 export const services = [
   {
@@ -57,35 +50,35 @@ export const services = [
 
 export const projects = [
   {
-    title: 'Lorem Ipsum Dolor Amet',
-    category: 'Lorem',
-    scope: 'Consectetur · Adipiscing',
+    title: 'Trans-Canada Highway Widening — Route 1',
+    category: 'Highway',
+    scope: '6.8 km · 4 Lanes · $38M',
     blurb:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Full-depth reconstruction and widening of the province’s busiest corridor — 470,000 m³ of embankment, dual box culverts, and phased traffic control that kept 28,000 vehicles a day moving.',
     accent: '#f5a623',
   },
   {
-    title: 'Consectetur Adipiscing Elit',
-    category: 'Ipsum',
-    scope: 'Tempor · Incididunt',
+    title: 'Exploits River Bridge Replacement',
+    category: 'Bridge',
+    scope: 'Twin 98-m Spans · $24M',
     blurb:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'Demolition and staged replacement of twin crossings over an active salmon river, with 96 drilled shafts, precast concrete girders, and zero recordable incidents across 28 months.',
     accent: '#3da5d9',
   },
   {
-    title: 'Sed Do Eiusmod Tempor',
-    category: 'Dolor',
-    scope: 'Labore · Dolore',
+    title: 'St. John’s Harbourfront Drainage Program',
+    category: 'Stormwater',
+    scope: '5,600 m Storm Main · $16M',
     blurb:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur.',
+      'Large-diameter storm trunk lines up to 2,400 mm, two regional detention ponds, and outfall structures — built through congested harbourfront utilities without a single service disruption.',
     accent: '#5aa469',
   },
   {
-    title: 'Ullamco Laboris Nisi',
-    category: 'Amet',
-    scope: 'Veniam · Nostrud',
+    title: 'Argentia Marine Terminal Site',
+    category: 'Sitework',
+    scope: '85 Hectares · 1.1M m³ Moved',
     blurb:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      'Mass grading, rock excavation, and complete wet-utility package for a port-served industrial park, delivered pad-ready 6 weeks ahead of the developer’s schedule.',
     accent: '#c0563b',
   },
 ]
@@ -93,50 +86,50 @@ export const projects = [
 export const process = [
   {
     step: '01',
-    title: 'Lorem Ipsum',
+    title: 'Estimate & Plan',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+      'Detailed takeoffs, constructability reviews, and value engineering give you a hard number you can hold us to — before the first stake goes in.',
   },
   {
     step: '02',
-    title: 'Dolor Adipiscing',
+    title: 'Mobilize',
     description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.',
+      'Permits, erosion and sediment control plans, traffic control, and utility locates locked down while our own fleet and crews stage on site — no waiting on subcontractors.',
   },
   {
     step: '03',
-    title: 'Eiusmod Tempor',
+    title: 'Self-Perform',
     description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.',
+      'GPS-guided machine control, daily quantity tracking, and on-site QA/QC keep production measurable and the schedule honest.',
   },
   {
     step: '04',
-    title: 'Cupidatat Proident',
+    title: 'Deliver & Close Out',
     description:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.',
+      'Punch lists cleared, as-builts and testing records handed over, and a finished product backed by our warranty — not excuses.',
   },
 ]
 
 export const values = [
   {
-    title: 'Lorem Ipsum Dolor',
+    title: 'Safety First',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
+      'A 0.61 TRIF and a culture where any crew member can stop work. Everyone goes home in the same shape they arrived — every shift, every site.',
   },
   {
-    title: 'Consectetur Adipiscing',
+    title: 'Self-Performed',
     description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'We own our iron and employ our crews. When the schedule tightens, we add shifts — we don’t renegotiate with subcontractors.',
   },
   {
-    title: 'Sed Do Eiusmod',
+    title: 'Schedule Certainty',
     description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      'CPM schedules updated weekly and production tracked daily, so you see slippage before it happens — not in a claim afterward.',
   },
   {
-    title: 'Ullamco Laboris',
+    title: 'Built to Endure',
     description:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.',
+      'Roads, bridges, and utilities are generational infrastructure. We build to the spec, then to the standard our name demands.',
   },
 ]
 

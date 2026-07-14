@@ -189,18 +189,34 @@
 @media (max-width: 1000px) {
   /* Blueprint reflows into a full-width band beneath the copy.
      The inner padding-bottom reserves that band, so the text can
-     never run into the model no matter how tall it wraps. */
+     never run into the model no matter how tall it wraps. Type
+     and spacing tighten so copy + model share one viewport. */
   .hero__inner {
-    padding-bottom: calc(clamp(200px, 32vh, 320px) + 4.5rem);
+    padding-top: 7rem;
+    padding-bottom: calc(clamp(180px, 28vh, 300px) + 3.5rem);
+  }
+
+  .hero__title {
+    font-size: clamp(1.9rem, 4.6vw, 3.2rem);
+  }
+
+  .hero__lede {
+    font-size: 1.05rem;
+    margin: 1.2rem 0 1.8rem;
+  }
+
+  .hero__badges {
+    margin-top: 2rem;
+    padding-top: 1.3rem;
   }
 
   .hero__model {
     top: auto;
     left: 7%;
     right: 7%;
-    bottom: 3.75rem;
+    bottom: 3rem;
     width: auto;
-    height: clamp(200px, 32vh, 320px);
+    height: clamp(180px, 28vh, 300px);
   }
 
   /* Compact title block: keep the name and sheet number rows */
@@ -216,7 +232,35 @@
 
 @media (max-width: 760px) {
   .hero__inner {
-    padding-top: 8rem;
+    padding-top: 5.5rem;
+  }
+
+  /* Let the headline wrap naturally instead of at the desktop break */
+  .hero__title br {
+    display: none;
+  }
+
+  .hero__title {
+    font-size: clamp(1.7rem, 6.6vw, 2.3rem);
+  }
+
+  .hero__lede {
+    font-size: 0.98rem;
+    margin: 1rem 0 1.4rem;
+  }
+
+  .hero__actions .btn--lg {
+    padding: 0.7rem 1.3rem;
+    font-size: 0.92rem;
+  }
+
+  .hero__badges {
+    margin-top: 1.6rem;
+    padding-top: 1.1rem;
+  }
+
+  .hero__badges span {
+    font-size: 0.78rem;
   }
 
   .hero__sheet {

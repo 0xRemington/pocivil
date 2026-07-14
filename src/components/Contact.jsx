@@ -1,5 +1,16 @@
 import { useState } from 'react'
+import { company } from '../data/site'
+import Card from '../styles/elements/Card'
 import './Contact.css'
+
+const projectTypes = [
+  'Roadway / Highway',
+  'Bridge / Structure',
+  'Earthwork / Grading',
+  'Underground Utilities',
+  'Demolition / Clearing',
+  'Site Development',
+]
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
@@ -9,95 +20,111 @@ export default function Contact() {
     setSent(true)
   }
 
+  // tel: needs the raw digits; the label keeps the formatted number
+  const telHref = `tel:${company.phone.replace(/[^0-9]/g, '')}`
+
   return (
-    <section className="section section--dark" id="contact">
+    <section className="section section--dark contact" id="contact">
+      <div className="contact__bg" aria-hidden="true" />
       <div className="container contact__grid">
         <div className="contact__info">
-          <p className="eyebrow eyebrow--light">Lorem Ipsum</p>
-          <h2 className="section__title">Consectetur adipiscing elit sed do.</h2>
+          <p className="eyebrow eyebrow--light">Request a Bid</p>
+          <h2 className="section__title">Send us your plans — we&rsquo;ll send you a number.</h2>
           <p className="contact__lede">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
+            Owners and general contractors: put {company.name} on your bid list. Share your drawings
+            and scope, and our estimating team gets back to you — with a real takeoff, not a
+            placeholder — within two business days.
           </p>
 
           <ul className="contact__details">
             <li>
-              <span className="contact__label">Lorem</span>
-              <span>Consectetur adipiscing</span>
+              <span className="contact__label">Phone</span>
+              <a href={telHref}>{company.phone}</a>
             </li>
             <li>
-              <span className="contact__label">Ipsum</span>
-              <span>Sed do eiusmod tempor</span>
+              <span className="contact__label">Email</span>
+              <a href={`mailto:${company.email}`}>{company.email}</a>
             </li>
             <li>
-              <span className="contact__label">Dolor</span>
-              <span>Ut labore et dolore magna aliqua</span>
+              <span className="contact__label">Office</span>
+              <span>{company.address}</span>
             </li>
             <li>
-              <span className="contact__label">Amet</span>
-              <span>Ut enim ad minim veniam</span>
+              <span className="contact__label">Hours</span>
+              <span>{company.hours}</span>
             </li>
           </ul>
         </div>
 
-        <div className="contact__formwrap">
-          {sent ? (
-            <div className="contact__success">
-              <h3>Lorem ipsum.</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-          ) : (
-            <form className="form" onSubmit={handleSubmit}>
-              <div className="form__row">
-                <label className="form__field">
-                  <span>Lorem</span>
-                  <input type="text" name="name" required placeholder="Lorem ipsum" />
-                </label>
-                <label className="form__field">
-                  <span>Ipsum</span>
-                  <input type="text" name="company" placeholder="Dolor sit amet" />
-                </label>
+        {/* Static stage: it carries the perspective and the hover, so the
+            tilting slab never slides out from under the pointer (see the
+            note in Services.css) */}
+        <div className="contact__stage">
+          <Card className="card--amber contact__card">
+            <span className="contact__titleblock" aria-hidden="true">
+              <span className="contact__tb-name">Bid Request</span>
+              <span className="contact__tb-sheet">C-001</span>
+            </span>
+
+            {sent ? (
+              <div className="contact__success" role="status">
+                <span className="contact__success-mark" aria-hidden="true">
+                  &#10003;
+                </span>
+                <h3>Bid request received.</h3>
+                <p>
+                  Thank you — our estimating team will review your scope and follow up within two
+                  business days. For time-sensitive lettings, call us at{' '}
+                  <a href={telHref}>{company.phone}</a>.
+                </p>
               </div>
-              <div className="form__row">
+            ) : (
+              <form className="form" onSubmit={handleSubmit}>
+                <div className="form__row">
+                  <label className="form__field">
+                    <span>Full Name</span>
+                    <input type="text" name="name" required placeholder="Jane Contractor" />
+                  </label>
+                  <label className="form__field">
+                    <span>Company</span>
+                    <input type="text" name="company" placeholder="Company or agency" />
+                  </label>
+                </div>
+                <div className="form__row">
+                  <label className="form__field">
+                    <span>Email</span>
+                    <input type="email" name="email" required placeholder="you@company.com" />
+                  </label>
+                  <label className="form__field">
+                    <span>Phone</span>
+                    <input type="tel" name="phone" placeholder="(709) 000-0000" />
+                  </label>
+                </div>
                 <label className="form__field">
-                  <span>Dolor</span>
-                  <input type="email" name="email" required placeholder="lorem@ipsum.com" />
+                  <span>Project Type</span>
+                  <select name="type" defaultValue="" required>
+                    <option value="" disabled>
+                      Select a discipline
+                    </option>
+                    {projectTypes.map((type) => (
+                      <option key={type}>{type}</option>
+                    ))}
+                  </select>
                 </label>
                 <label className="form__field">
-                  <span>Amet</span>
-                  <input type="tel" name="phone" placeholder="(000) 000-0000" />
+                  <span>Project Details</span>
+                  <textarea
+                    name="message"
+                    rows="4"
+                    placeholder="Location, bid date, scope, and any plan links — the more detail, the sharper the estimate."
+                  />
                 </label>
-              </div>
-              <label className="form__field">
-                <span>Consectetur</span>
-                <select name="type" defaultValue="">
-                  <option value="" disabled>
-                    Lorem ipsum dolor
-                  </option>
-                  <option>Lorem Ipsum</option>
-                  <option>Dolor Sit Amet</option>
-                  <option>Consectetur Adipiscing</option>
-                  <option>Sed Do Eiusmod</option>
-                  <option>Tempor Incididunt</option>
-                  <option>Ut Labore</option>
-                </select>
-              </label>
-              <label className="form__field">
-                <span>Adipiscing Elit</span>
-                <textarea
-                  name="message"
-                  rows="4"
-                  placeholder="Lorem ipsum dolor sit amet, consectetur…"
-                />
-              </label>
-              <button type="submit" className="btn btn--accent btn--lg form__submit">
-                Lorem Ipsum
-              </button>
-            </form>
-          )}
+                <button type="submit" className="btn btn--accent btn--lg form__submit">
+                  Send Bid Request
+                </button>
+              </form>
+            )}
+          </Card>
         </div>
       </div>
     </section>

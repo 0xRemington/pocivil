@@ -1,0 +1,277 @@
+/* ---------- Slab card ---------- */
+/* Companion styles for elements/Card.jsx. The card is a 3D solid: it
+   needs a `perspective` ancestor (the carousel cell, the About tile
+   wrapper) for the depth to read.
+
+   Geometry is fixed; every surface is a custom property, so a section
+   can re-skin the slab without touching a single rule. The defaults
+   below are the Services look: a navy block under a white glass pane,
+   lit from the top-left. See About.css for the graphite variant. */
+
+.card {
+  --card-depth: 22px;
+  --card-radius: 48px;
+
+  /* Faces */
+  --card-face: linear-gradient(135deg, var(--navy-600) 0%, var(--navy) 45%, var(--ink) 100%);
+  --card-back: linear-gradient(135deg, #1e3c66 0%, var(--ink) 100%);
+
+  /* Walls — the light comes from the top-left, so the top and left
+     walls are the lit pair and the bottom and right fall into shadow */
+  --card-wall-left: linear-gradient(180deg, #2a568f 0%, #1e3c66 100%);
+  --card-wall-top: linear-gradient(90deg, #2a568f 0%, #24497c 100%);
+  --card-wall-right: linear-gradient(180deg, #1e3c66 0%, var(--ink) 100%);
+  --card-wall-bottom: linear-gradient(90deg, #1a3559 0%, var(--ink) 100%);
+
+  /* Corner arcs, rounding the same light off toward the shadow side */
+  --card-corner-tl: #2a568f;
+  --card-corner-tr: #22456f;
+  --card-corner-bl: #1c3a5f;
+  --card-corner-br: var(--ink);
+
+  /* Inset glass pane. The swoop is the pane's top-right radius: at 100%
+     it sweeps the whole corner away and the face shows through as the
+     tile's signature curve. Panes that have to carry wide content (the
+     bid form) dial it back rather than drop it. */
+  --card-glass: linear-gradient(0deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.82) 100%);
+  --card-glass-edge: rgba(255, 255, 255, 0.9);
+  --card-glass-edge-2: rgba(255, 255, 255, 0.75);
+  --card-glass-swoop: 100%;
+
+  /* Type sitting on the glass */
+  --card-title-color: var(--ink);
+  --card-text-color: rgba(20, 38, 61, 0.82);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: var(--card-face);
+  border-radius: var(--card-radius);
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease;
+  box-shadow:
+    rgba(20, 38, 61, 0) 40px 50px 25px -40px,
+    rgba(20, 38, 61, 0.28) 0 25px 25px -5px;
+}
+
+/* Amber skin — the slab as it reads on a navy section (About's value
+   tiles, the bid-request form). Navy and amber trade places and nothing
+   else moves: the block is the accent cast as a solid, lit from the same
+   top-left, under a warm-white pane. Because the glass is inset only
+   8px, the amber reads as a rim and the top-right swoop — exactly the
+   way navy reads on a services tile. */
+.card--amber {
+  --card-face: linear-gradient(135deg, #ffc659 0%, var(--accent) 45%, #b5710a 100%);
+  --card-back: linear-gradient(135deg, #b5710a 0%, #6d420a 100%);
+
+  --card-wall-top: linear-gradient(90deg, #ffd07e 0%, #f0a51f 100%);
+  --card-wall-left: linear-gradient(180deg, #ffd07e 0%, #d98b0c 100%);
+  --card-wall-right: linear-gradient(180deg, #d98b0c 0%, #8a530a 100%);
+  --card-wall-bottom: linear-gradient(90deg, #b5710a 0%, #6d420a 100%);
+
+  --card-corner-tl: #ffd07e;
+  --card-corner-tr: #dc9418;
+  --card-corner-bl: #c07d10;
+  --card-corner-br: #6d420a;
+
+  /* Warm glass — the same pane as the services tiles, carrying a little
+     of the amber it sits on rather than a flat white */
+  --card-glass: linear-gradient(0deg, rgba(255, 243, 224, 0.4) 0%, rgba(255, 251, 244, 0.88) 100%);
+  --card-glass-edge: rgba(255, 255, 255, 0.95);
+  --card-glass-edge-2: rgba(255, 240, 214, 0.8);
+
+  /* Navy type on the warm pane, closing the loop with the section */
+  --card-title-color: var(--ink);
+  --card-text-color: rgba(20, 38, 61, 0.82);
+
+  /* Deeper cast: the block is sitting on navy, not on the white page */
+  box-shadow:
+    rgba(9, 24, 46, 0) 40px 50px 25px -40px,
+    rgba(9, 24, 46, 0.45) 0 22px 26px -8px;
+}
+
+/* Slab thickness: a back face, flat walls along the straight edges,
+   and segmented arc strips wrapping each rounded corner (geometry
+   computed in Card.jsx) — the tile reads as one closed solid block
+   from any angle it is turned, using ~2 dozen tiny composited planes */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--card-back);
+  transform: translateZ(calc(-1 * var(--card-depth)));
+  box-shadow: rgba(20, 38, 61, 0.35) 0 22px 30px -12px;
+}
+
+.card__edge {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Straight-edge walls stop at the corner radius; the corner segments
+   carry the depth around the curves themselves */
+.card__edge--left,
+.card__edge--right {
+  top: var(--card-radius);
+  bottom: var(--card-radius);
+  width: var(--card-depth);
+}
+
+.card__edge--left {
+  left: 0;
+  transform-origin: left center;
+  transform: rotateY(90deg);
+  background: var(--card-wall-left);
+}
+
+.card__edge--right {
+  right: 0;
+  transform-origin: right center;
+  transform: rotateY(-90deg);
+  background: var(--card-wall-right);
+}
+
+.card__edge--top,
+.card__edge--bottom {
+  left: var(--card-radius);
+  right: var(--card-radius);
+  height: var(--card-depth);
+}
+
+.card__edge--top {
+  top: 0;
+  transform-origin: center top;
+  transform: rotateX(-90deg);
+  background: var(--card-wall-top);
+}
+
+.card__edge--bottom {
+  bottom: 0;
+  transform-origin: center bottom;
+  transform: rotateX(90deg);
+  background: var(--card-wall-bottom);
+}
+
+/* Corner wrappers: one per corner, mirrored from the top-left
+   geometry; each holds the arc segment strips laid out by Card.jsx
+   in units of --card-radius */
+.card__corner {
+  position: absolute;
+  width: var(--card-radius);
+  height: var(--card-radius);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.card__corner--tl {
+  top: 0;
+  left: 0;
+  --corner-color: var(--card-corner-tl);
+}
+
+.card__corner--tr {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+  --corner-color: var(--card-corner-tr);
+}
+
+.card__corner--bl {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+  --corner-color: var(--card-corner-bl);
+}
+
+.card__corner--br {
+  bottom: 0;
+  right: 0;
+  transform: scale(-1, -1);
+  --corner-color: var(--card-corner-br);
+}
+
+.card__seg {
+  position: absolute;
+  height: var(--card-depth);
+  transform-origin: top left;
+  background: var(--corner-color);
+}
+
+/* Inset glass plane with the swooping top-right curve */
+.card__glass {
+  position: absolute;
+  inset: 8px;
+  border-radius: calc(var(--card-radius) - 4px);
+  border-top-right-radius: var(--card-glass-swoop);
+  background: var(--card-glass);
+  border-left: 1px solid var(--card-glass-edge);
+  border-bottom: 1px solid var(--card-glass-edge-2);
+  transform: translate3d(0, 0, 25px);
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.card__content {
+  position: relative;
+  z-index: 3;
+  transform: translate3d(0, 0, 26px);
+  transition: transform 0.5s ease-in-out;
+  padding: 0 1.85rem 2.4rem;
+}
+
+.card__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: var(--navy);
+  color: #fff;
+  margin-bottom: 1.3rem;
+  box-shadow: rgba(20, 38, 61, 0.3) 0 10px 18px -8px;
+}
+
+.card__title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--card-title-color);
+  margin-bottom: 0.7rem;
+}
+
+.card__text {
+  color: var(--card-text-color);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  /* walls, corner segments, and the glass inset all track the radius */
+  .card {
+    --card-radius: 38px;
+  }
+
+  .card__content {
+    padding: 0 1.4rem 1.8rem;
+  }
+
+  .card__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+  }
+
+  .card__title {
+    font-size: 1.15rem;
+  }
+
+  .card__text {
+    font-size: 0.85rem;
+  }
+}
