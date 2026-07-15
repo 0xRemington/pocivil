@@ -19,7 +19,7 @@ export default function Hero() {
       </div>
       <div className="container hero__inner">
         <h1 className="hero__title">
-          We move earth, raise structures,
+          We move earth, raise structures,{' '}
           <br />
           and build what lasts.
         </h1>
@@ -38,8 +38,8 @@ export default function Hero() {
         </div>
         <div className="hero__badges">
           <span>Bonded &amp; Insured</span>
-          <span>DBE / MBE Certified</span>
-          <span>OSHA Compliant</span>
+          <span>COR&trade; Certified</span>
+          <span>NL OHS Compliant</span>
         </div>
       </div>
     </section>

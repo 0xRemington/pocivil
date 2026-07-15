@@ -5,6 +5,86 @@
    behaviour of the cards lives here; the tile itself is styled
    in styles/elements/card.css.
    ============================================================ */
+
+/* ---------- Roadway plan background sheet ---------- */
+/* The section is the drawing sheet: the SVG plan (drawn in
+   Services.jsx) fills it edge to edge in faint black ink, and a
+   radial mask fades the linework out before it can collide with
+   the sections above and below. Everything else in the section
+   is lifted one layer above it. */
+.services {
+  position: relative;
+}
+
+.services__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: #0f1c2c;
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 42%, #000 42%, transparent 82%);
+  mask-image: radial-gradient(120% 100% at 50% 42%, #000 42%, transparent 82%);
+}
+
+.services__bg svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.services > :not(.services__bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Linework weights: pavement edges heaviest, dash-dot centerline
+   next, annotation (ticks, leaders, dims, hatching) lightest —
+   the hierarchy a real plan sheet uses. */
+.services__bg .rd-edge {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-opacity: 0.14;
+}
+
+.services__bg .rd-center {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-opacity: 0.16;
+  stroke-dasharray: 30 8 5 8;
+}
+
+.services__bg .rd-anno {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-opacity: 0.13;
+}
+
+.services__bg .rd-anno--dash {
+  stroke-dasharray: 5 5;
+}
+
+.services__bg .rd-fill {
+  fill: currentColor;
+  fill-opacity: 0.16;
+  stroke: none;
+}
+
+.services__bg .rd-text {
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  fill: currentColor;
+  fill-opacity: 0.3;
+}
+
+.services__bg .rd-text--sm {
+  font-size: 11px;
+}
+
 .carousel__slide .card {
   height: 100%;
 }

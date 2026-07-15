@@ -8,18 +8,6 @@
   text-transform: uppercase;
   color: var(--accent-dark);
   margin-bottom: 0.9rem;
-  position: relative;
-  padding-left: 2.4rem;
-}
-
-.eyebrow::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.5em;
-  width: 1.8rem;
-  height: 2px;
-  background: var(--accent);
 }
 
 .eyebrow--light {

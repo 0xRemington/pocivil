@@ -1,3 +1,21 @@
+// Placeholder project photography (royalty-free, unsplash.com) until
+// real site photos are supplied — swap the files in src/assets/projects/
+import highwayPhoto from '../assets/projects/highway-route1.jpg'
+import bridgePhoto from '../assets/projects/bridge-exploits.jpg'
+import drainagePhoto from '../assets/projects/drainage-harbourfront.jpg'
+import siteworkPhoto from '../assets/projects/sitework-argentia.jpg'
+
+import serviceEarthwork from '../assets/services/earthwork.jpg'
+import serviceRoadway from '../assets/services/roadway.jpg'
+import serviceBridge from '../assets/services/bridge.jpg'
+import serviceUtilities from '../assets/services/utilities.jpg'
+import serviceDemolition from '../assets/services/demolition.jpg'
+import serviceStormwater from '../assets/services/stormwater.jpg'
+import valueSafety from '../assets/values/safety.jpg'
+import valueFleet from '../assets/values/fleet.jpg'
+import valueSurvey from '../assets/values/survey.jpg'
+import valueStructure from '../assets/values/structure.jpg'
+
 export const company = {
   name: 'P.Okeke Heavy Civil',
   shortName: 'P.Okeke',
@@ -9,42 +27,63 @@ export const company = {
   founded: 2004,
 }
 
+/* image/imagePosition feed the Card photo face — imagePosition steers
+   the photo's subject into the glass swoop window at the top-right of
+   the tile (see .card__photo in styles/elements/card.css) */
 export const services = [
   {
     icon: 'earthwork',
     title: 'Earthwork & Grading',
     description:
-      'Mass excavation, site grading, and soil stabilization with GPS-guided machine control for precision to the tenth of a foot.',
+      'Mass excavation, site grading, and soil stabilization with GPS-guided machine control for centimetre precision.',
+    image: serviceEarthwork,
+    imagePosition: '50% 55%',
+    imageAlt: 'Motor grader levelling a dirt road',
   },
   {
     icon: 'roadway',
     title: 'Roadways & Highways',
     description:
-      'Full-depth roadway construction, widening, and reconstruction — subgrade through final paving for state and municipal clients.',
+      'Full-depth roadway construction, widening, and reconstruction — subgrade through final paving for provincial and municipal clients.',
+    image: serviceRoadway,
+    imagePosition: '35% 45%',
+    imageAlt: 'Roller compacting fresh asphalt',
   },
   {
     icon: 'bridge',
     title: 'Bridges & Structures',
     description:
       'Cast-in-place and precast structures, drilled shafts, abutments, and culverts engineered for decades of service.',
+    image: serviceBridge,
+    imagePosition: '50% 40%',
+    imageAlt: 'Cable-stayed bridge pylon under construction with cranes',
   },
   {
     icon: 'utilities',
     title: 'Underground Utilities',
     description:
       'Storm, sanitary, and water systems including deep trenching, boring, and large-diameter pipe installation.',
+    image: serviceUtilities,
+    imagePosition: '60% 50%',
+    imageAlt: 'Open trench with gravel bedding and pipe staged beside it',
   },
   {
     icon: 'demolition',
     title: 'Demolition & Clearing',
     description:
       'Controlled structural demolition, site clearing, and environmentally responsible material recycling.',
+    image: serviceDemolition,
+    imagePosition: '60% 30%',
+    imageAlt: 'Excavator working through demolition rubble',
   },
   {
     icon: 'stormwater',
     title: 'Site & Stormwater',
     description:
       'Detention ponds, drainage channels, erosion control, and complete site-development packages.',
+    image: serviceStormwater,
+    imagePosition: '50% 40%',
+    imageAlt: 'Stacked concrete culvert sections',
   },
 ]
 
@@ -56,6 +95,7 @@ export const projects = [
     blurb:
       'Full-depth reconstruction and widening of the province’s busiest corridor — 470,000 m³ of embankment, dual box culverts, and phased traffic control that kept 28,000 vehicles a day moving.',
     accent: '#f5a623',
+    image: highwayPhoto,
   },
   {
     title: 'Exploits River Bridge Replacement',
@@ -64,6 +104,7 @@ export const projects = [
     blurb:
       'Demolition and staged replacement of twin crossings over an active salmon river, with 96 drilled shafts, precast concrete girders, and zero recordable incidents across 28 months.',
     accent: '#3da5d9',
+    image: bridgePhoto,
   },
   {
     title: 'St. John’s Harbourfront Drainage Program',
@@ -72,6 +113,7 @@ export const projects = [
     blurb:
       'Large-diameter storm trunk lines up to 2,400 mm, two regional detention ponds, and outfall structures — built through congested harbourfront utilities without a single service disruption.',
     accent: '#5aa469',
+    image: drainagePhoto,
   },
   {
     title: 'Argentia Marine Terminal Site',
@@ -80,6 +122,7 @@ export const projects = [
     blurb:
       'Mass grading, rock excavation, and complete wet-utility package for a port-served industrial park, delivered pad-ready 6 weeks ahead of the developer’s schedule.',
     accent: '#c0563b',
+    image: siteworkPhoto,
   },
 ]
 
@@ -110,26 +153,41 @@ export const process = [
   },
 ]
 
+/* image/imagePosition feed the Card photo face — imagePosition steers
+   the photo's subject into the glass swoop window at the top-right of
+   the tile (see .card__photo in styles/elements/card.css) */
 export const values = [
   {
     title: 'Safety First',
     description:
       'A 0.61 TRIF and a culture where any crew member can stop work. Everyone goes home in the same shape they arrived — every shift, every site.',
+    image: valueSafety,
+    imagePosition: '50% 30%',
+    imageAlt: 'Wall of well-worn construction hard hats',
   },
   {
     title: 'Self-Performed',
     description:
       'We own our iron and employ our crews. When the schedule tightens, we add shifts — we don’t renegotiate with subcontractors.',
+    image: valueFleet,
+    imagePosition: '35% 50%',
+    imageAlt: 'Excavator working atop a gravel mound',
   },
   {
     title: 'Schedule Certainty',
     description:
       'CPM schedules updated weekly and production tracked daily, so you see slippage before it happens — not in a claim afterward.',
+    image: valueSurvey,
+    imagePosition: '55% 25%',
+    imageAlt: 'Surveyor running a level in front of a dozer',
   },
   {
     title: 'Built to Endure',
     description:
       'Roads, bridges, and utilities are generational infrastructure. We build to the spec, then to the standard our name demands.',
+    image: valueStructure,
+    imagePosition: '50% 22%',
+    imageAlt: 'Concrete highway overpass structure',
   },
 ]
 
@@ -138,5 +196,6 @@ export const nav = [
   { label: 'Projects', href: '#projects' },
   { label: 'About', href: '#about' },
   { label: 'Process', href: '#process' },
+  { label: 'Safety', href: '#safety' },
   { label: 'Contact', href: '#contact' },
 ]

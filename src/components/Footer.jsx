@@ -55,7 +55,6 @@ export default function Footer() {
             <li>
               <a href={`mailto:${company.email}`}>{company.email}</a>
             </li>
-            <li>{company.address}</li>
             <li>{company.hours}</li>
           </ul>
         </div>

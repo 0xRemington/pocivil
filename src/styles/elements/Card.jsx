@@ -45,13 +45,28 @@ function CardCorners() {
   ))
 }
 
-export default function Card({ className = '', children }) {
+/* `image` swaps the face gradient for a photo: it fills the whole face,
+   so the glass pane's top-right swoop becomes a window onto it and the
+   rest ghosts through the pane. `imagePosition` is an object-position
+   value that steers the interesting part of the photo into that
+   top-right window. */
+export default function Card({ className = '', image, imagePosition, imageAlt = '', children }) {
   return (
-    <article className={`card ${className}`.trim()}>
+    <article className={`card ${image ? 'card--photo' : ''} ${className}`.trim()}>
       {['left', 'right', 'top', 'bottom'].map((edge) => (
         <span key={edge} className={`card__edge card__edge--${edge}`} aria-hidden="true" />
       ))}
       <CardCorners />
+      {image && (
+        <span className="card__photo">
+          <img
+            src={image}
+            alt={imageAlt}
+            loading="lazy"
+            style={imagePosition ? { objectPosition: imagePosition } : undefined}
+          />
+        </span>
+      )}
       <span className="card__glass" aria-hidden="true" />
       <div className="card__content">{children}</div>
     </article>

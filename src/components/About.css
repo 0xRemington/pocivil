@@ -65,7 +65,9 @@
 /* The value tiles are the same slab cards as the services carousel
    (styles/elements/Card.jsx), wearing the shared amber skin the dark
    sections use (.card--amber in elements/card.css — the bid-request
-   form wears it too). Only the geometry is set here. */
+   form wears it too). Each tile's face carries a photo (values[] in
+   data/site.js) that shows through the glass swoop window — see
+   .card__photo in elements/card.css. Only the geometry is set here. */
 .values {
   display: grid;
   grid-template-columns: 1fr 1fr;

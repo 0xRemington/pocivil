@@ -6,8 +6,43 @@
    drafting grid, thin white frame, ghosted plan-view detail
    number, monospace title block) over a paper body. The
    per-project `accent` (--accent-project) is the sole colour
-   highlight — glow, detail number, sheet number, hover halo.
+   highlight — detail number, sheet number, hover halo.
    ============================================================ */
+/* The section hosts an absolutely-positioned background map, so it
+   anchors the layer and clips the part hanging off the left edge */
+.section--projects {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tiles and heading ride above the map layer */
+.section--projects .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Line-drawn outline of Newfoundland: a large, faint drafting-style
+   figure behind the tiles. Anchored left and nudged slightly off the
+   edge so the bulk of the island stays visible in the left gutter
+   while the Avalon runs under the tiles. */
+.projects__map {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: clamp(-8rem, -5vw, -3rem);
+  transform: translateY(-50%);
+  width: min(64vw, 940px);
+  height: auto;
+  pointer-events: none;
+  fill: var(--navy);
+  fill-opacity: 0.03;
+  stroke: var(--navy);
+  stroke-opacity: 0.18;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
 .projects {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -120,6 +155,32 @@
   background: linear-gradient(150deg, var(--navy-600) 0%, var(--navy) 42%, var(--ink) 100%);
 }
 
+/* Site photo laid under the drafting overlay: dimmed and slightly
+   desaturated so the navy gradient tints it and the white frame,
+   ghosted number, and title block stay legible on top */
+.project__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  filter: saturate(0.7);
+  transform: scale(1);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease-in-out;
+}
+
+/* The photo brightens and eases forward with the card's hover tilt */
+@media (hover: hover) {
+  .project:hover .project__photo {
+    opacity: 0.65;
+    transform: scale(1.04);
+  }
+}
+
 /* Drafting grid: fine squares with a heavier line every fifth */
 .project__visual::before {
   content: '';
@@ -136,25 +197,6 @@
     100px 100px,
     20px 20px,
     20px 20px;
-}
-
-/* Accent wash bleeding in from the lower-right corner */
-.project__glow {
-  position: absolute;
-  z-index: 0;
-  right: -40px;
-  bottom: -30px;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: var(--accent-project, var(--accent));
-  opacity: 0.45;
-  filter: blur(8px);
-  transition: opacity 0.2s ease;
-}
-
-.project:hover .project__glow {
-  opacity: 0.6;
 }
 
 /* Ghosted plan-view detail number in the accent colour */
@@ -264,6 +306,11 @@
   /* One column on tablets down: full-width sheets stay legible */
   .projects {
     grid-template-columns: 1fr;
+  }
+
+  /* Full-width tiles leave no gutter for the map to show through */
+  .projects__map {
+    display: none;
   }
 }
 

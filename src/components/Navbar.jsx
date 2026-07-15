@@ -1,14 +1,41 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { company, nav } from '../data/site'
 import './Navbar.css'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const headerRef = useRef(null)
 
   const close = () => setOpen(false)
 
+  // While the mobile menu is open: close on Escape, close on a click
+  // outside the header (nav links live inside it and close themselves),
+  // and lock body scroll. All undone on cleanup.
+  useEffect(() => {
+    if (!open) return
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    const onPointerDown = (e) => {
+      if (headerRef.current && !headerRef.current.contains(e.target)) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    document.addEventListener('pointerdown', onPointerDown)
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('pointerdown', onPointerDown)
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
   return (
-    <header className="navbar">
+    <header className="navbar" ref={headerRef}>
       <div className="navbar__pill">
         <a href="#top" className="brand" onClick={close}>
           <span className="brand__mark" aria-hidden="true">
@@ -24,7 +51,7 @@ export default function Navbar() {
             </svg>
           </span>
           <span className="brand__text">
-            <strong>P.Okeke</strong>
+            <strong>P. Okeke</strong>
             <small>Heavy Civil</small>
           </span>
         </a>

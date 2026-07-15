@@ -25,7 +25,7 @@ export default function About() {
             Work With Us
           </a>
           <p className="about__meta" aria-hidden="true">
-            EST. {company.founded} · St. John&rsquo;s, NL · COR™ Certified
+            EST. {company.founded} · Mount Pearl, NL · COR™ Certified
           </p>
         </div>
 
@@ -34,7 +34,12 @@ export default function About() {
               itself — see the note in Services.css */}
           {values.map((v) => (
             <div className="value" key={v.title}>
-              <Card className="card--amber">
+              <Card
+                className="card--amber"
+                image={v.image}
+                imagePosition={v.imagePosition}
+                imageAlt={v.imageAlt}
+              >
                 <h3 className="card__title">{v.title}</h3>
                 <p className="card__text">{v.description}</p>
               </Card>

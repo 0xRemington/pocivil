@@ -17,6 +17,30 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    const data = new FormData(e.target)
+    const get = (field) => (data.get(field) || '').trim()
+    const name = get('name')
+    const type = get('type')
+
+    const subject = ['Bid Request', type, name].filter(Boolean).join(' — ')
+
+    const bodyLines = [
+      ['Name', name],
+      ['Company', get('company')],
+      ['Email', get('email')],
+      ['Phone', get('phone')],
+      ['Project Type', type],
+      ['Details', get('message')],
+    ]
+      .filter(([, value]) => value)
+      .map(([label, value]) => `${label}: ${value}`)
+
+    const mailtoUrl = `mailto:${company.email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(bodyLines.join('\n'))}`
+
+    window.location.href = mailtoUrl
     setSent(true)
   }
 
@@ -71,10 +95,12 @@ export default function Contact() {
                 <span className="contact__success-mark" aria-hidden="true">
                   &#10003;
                 </span>
-                <h3>Bid request received.</h3>
+                <h3>Your bid request is ready to send.</h3>
                 <p>
-                  Thank you — our estimating team will review your scope and follow up within two
-                  business days. For time-sensitive lettings, call us at{' '}
+                  We&rsquo;ve opened an email draft addressed to our estimating team in your mail
+                  client — hit send and it&rsquo;s in our hands, with a real takeoff back to you
+                  within two business days. If no draft appeared, email us straight at{' '}
+                  <a href={`mailto:${company.email}`}>{company.email}</a> or call{' '}
                   <a href={telHref}>{company.phone}</a>.
                 </p>
               </div>
