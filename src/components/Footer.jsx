@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
           <p className="footer__tag">{company.tagline}</p>
           <p className="footer__stamp">
-            Mount Pearl, NL · Est. {company.founded}
+            NL · Est. 2025
           </p>
         </div>
 
@@ -55,7 +55,6 @@ export default function Footer() {
             <li>
               <a href={`mailto:${company.email}`}>{company.email}</a>
             </li>
-            <li>{company.hours}</li>
           </ul>
         </div>
       </div>
@@ -63,14 +62,11 @@ export default function Footer() {
       <div className="footer__bar">
         <div className="container footer__bar-inner">
           {/* Sheet-number tab — echoes the hero title block's "S-101" */}
-          <span className="footer__sheet" aria-hidden="true">
-            G-001
-          </span>
           <span className="footer__copy">
             © {year} {company.name}. All rights reserved.
           </span>
           <span className="footer__creds">
-            Bonded &amp; Insured · COR™ Certified · OHS Compliant
+            Bonded &amp; Insured · Certified · OHS Compliant
           </span>
         </div>
       </div>

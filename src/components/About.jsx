@@ -18,15 +18,12 @@ export default function About() {
           </p>
           <p className="about__text">
             Across 480-plus projects we’ve moved more than 4.7 million cubic metres of earth while
-            holding a 0.61 TRIF — proof that production and safety pull in the same direction. We’re
-            COR™ certified, fully bonded, and insured for every job we bid.
+            maintaining a safety-first culture — proof that production and safety pull in the same direction. We’re
+            certified, fully bonded, and insured for every job we bid.
           </p>
           <a href="#contact" className="btn btn--accent">
             Work With Us
           </a>
-          <p className="about__meta" aria-hidden="true">
-            EST. {company.founded} · Mount Pearl, NL · COR™ Certified
-          </p>
         </div>
 
         <div className="values">

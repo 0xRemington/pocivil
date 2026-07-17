@@ -69,14 +69,6 @@ export default function Contact() {
               <span className="contact__label">Email</span>
               <a href={`mailto:${company.email}`}>{company.email}</a>
             </li>
-            <li>
-              <span className="contact__label">Office</span>
-              <span>{company.address}</span>
-            </li>
-            <li>
-              <span className="contact__label">Hours</span>
-              <span>{company.hours}</span>
-            </li>
           </ul>
         </div>
 

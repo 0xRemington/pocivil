@@ -160,7 +160,7 @@ export const values = [
   {
     title: 'Safety First',
     description:
-      'A 0.61 TRIF and a culture where any crew member can stop work. Everyone goes home in the same shape they arrived — every shift, every site.',
+      'A safety-first culture where any crew member can stop work. Everyone goes home in the same shape they arrived — every shift, every site.',
     image: valueSafety,
     imagePosition: '50% 30%',
     imageAlt: 'Wall of well-worn construction hard hats',
@@ -176,7 +176,7 @@ export const values = [
   {
     title: 'Schedule Certainty',
     description:
-      'CPM schedules updated weekly and production tracked daily, so you see slippage before it happens — not in a claim afterward.',
+      'Schedules updated weekly and production tracked daily, so you see slippage before it happens — not in a claim afterward.',
     image: valueSurvey,
     imagePosition: '55% 25%',
     imageAlt: 'Surveyor running a level in front of a dozer',

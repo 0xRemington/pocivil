@@ -38,7 +38,7 @@ export default function Hero() {
         </div>
         <div className="hero__badges">
           <span>Bonded &amp; Insured</span>
-          <span>COR&trade; Certified</span>
+          <span>Certified</span>
           <span>NL OHS Compliant</span>
         </div>
       </div>
