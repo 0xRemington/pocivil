@@ -62,15 +62,64 @@
 .project .card {
   --card-radius: 34px;
   --card-depth: 18px;
+
+  /* Image band geometry, shared by the sheet header and the painted
+     photo stretch of the side walls: the sheet's inset plus the
+     drawing-header height puts the band's bottom edge at --band-end
+     in card coordinates */
+  --sheet-gap: 8px;
+  --visual-h: 210px;
+  --band-end: calc(var(--sheet-gap) + var(--visual-h));
+
+  /* Side-border pivot under the hover tilt: the front image's bottom
+     corner rides the sheet 26px above the face, so at 28° it projects
+     --edge-rise above the flat band line right at the sheet's edge,
+     and the border receding from it crosses the card edge --edge-drop
+     below that line. The face paints the slant between those two
+     points; the wall carries the extra drop flat and the real 3D
+     recede supplies the rest of the angle. Eyeball-tuned pair — nudge
+     together if the corner drifts off the line at other tilt angles. */
+  --edge-rise: 9px;
+  --edge-drop: 3px;
+
   flex: 1;
 }
 
 /* White slab: these tiles sit on the white page, so the navy solid
    is recast in paper tones — the same lit-to-shadowed ramp as the
    navy walls (top/left catch light, bottom/right fall away), just
-   translated into cool greys that stay visible against the page */
+   translated into cool greys that stay visible against the page.
+
+   The face also carries the image band (photo at 1:1 with the front
+   header, same navy tint as the walls): the sheet floats 26px above
+   the face, so the tilt would otherwise show the face's white rim and
+   the parallax gap under the sheet as a white break between the front
+   image and its painted wall edge. With the band on the face, the
+   image runs continuously from sheet to face to wall. At rest the
+   sheet's perspective scale covers all but a sliver of it. */
 .project .card {
-  background: linear-gradient(135deg, #f6f8fc 0%, #eaeff7 45%, #dce4f0 100%);
+  /* Top layer: the slanted bottom border. A small square strip whose
+     diagonal runs from the pivot at the sheet's edge (--edge-rise
+     above the flat line) down 45° to the card edge (--edge-drop below
+     it) — paper below the diagonal, photo showing through above. The
+     photo and tint layers under it are extended by the drop so the
+     band reaches the slant's low end; the wall picks it up from there. */
+  background-image:
+    linear-gradient(to bottom right, rgba(233, 238, 245, 0) 49.5%, #e9eef5 50.5%),
+    linear-gradient(180deg, rgba(30, 60, 102, 0.4) 0%, rgba(20, 38, 61, 0.55) 100%),
+    var(--project-image),
+    linear-gradient(135deg, #f6f8fc 0%, #eaeff7 45%, #dce4f0 100%);
+  background-size:
+    calc(var(--edge-rise) + var(--edge-drop)) calc(var(--edge-rise) + var(--edge-drop)),
+    100% calc(var(--visual-h) + var(--edge-drop)),
+    100% calc(var(--visual-h) + var(--edge-drop)),
+    100% 100%;
+  background-position:
+    0 calc(var(--band-end) - var(--edge-rise)),
+    0 var(--sheet-gap),
+    0 var(--sheet-gap),
+    0 0;
+  background-repeat: no-repeat;
 }
 
 .project .card::before {
@@ -78,12 +127,108 @@
   box-shadow: rgba(20, 38, 61, 0.22) 0 22px 30px -12px;
 }
 
-.project .card__edge--left {
-  background: linear-gradient(180deg, #e2e9f3 0%, #d3dce9 100%);
+/* Photo-through-the-block walls: the hover tilt turns the slab to show
+   its left wall, and along the stretch that lines up with the drawing
+   header that wall carries the project photo itself — the image's edge
+   sliver (--project-image, set inline in Projects.jsx) stretched
+   across the slab's depth and tinted navy to sit with the dimmed
+   header — so the tile reads as a solid block the image runs through.
+   Below --band-end the wall returns to opaque paper beside the card
+   body, with the hard stop in register with the front boundary.
+
+   Geometry: the walls start --card-radius down from the card top, so
+   every band measure is offset by the radius. The photo layer is drawn
+   --visual-h tall (1:1 with the front image, so its features stay in
+   vertical register) and 900% wide, leaving a ~2%-of-image sliver
+   visible across the wall — the smear a photo's edge shows on the side
+   of a block it's printed through. */
+.project .card__edge--left,
+.project .card__edge--right {
+  /* Band bottom sits at the slant's low end (--edge-drop below the
+     flat line); painted level across the depth, the receding edge of
+     the border is then drawn by the 3D transform itself */
+  --band-h: calc(var(--band-end) - var(--card-radius) + var(--edge-drop));
+  background-repeat: no-repeat;
 }
 
+.project .card__edge--left {
+  background-image:
+    linear-gradient(180deg, rgba(30, 60, 102, 0.4) 0%, rgba(20, 38, 61, 0.55) 100%),
+    var(--project-image),
+    linear-gradient(180deg, #e2e9f3 0%, #d3dce9 100%);
+  background-size:
+    100% var(--band-h),
+    900% calc(var(--visual-h) + var(--edge-drop)),
+    100% 100%;
+  background-position:
+    0 0,
+    0 calc(var(--sheet-gap) - var(--card-radius)),
+    0 0;
+}
+
+/* Mirror on the right wall (shadow side, so a touch more tint): the
+   rightmost sliver of the image, for whichever angle catches it */
 .project .card__edge--right {
-  background: linear-gradient(180deg, #d3dce9 0%, #b6c3d6 100%);
+  background-image:
+    linear-gradient(180deg, rgba(30, 60, 102, 0.45) 0%, rgba(20, 38, 61, 0.65) 100%),
+    var(--project-image),
+    linear-gradient(180deg, #d3dce9 0%, #b6c3d6 100%);
+  background-size:
+    100% var(--band-h),
+    900% calc(var(--visual-h) + var(--edge-drop)),
+    100% 100%;
+  background-position:
+    0 0,
+    100% calc(var(--sheet-gap) - var(--card-radius)),
+    0 0;
+}
+
+/* Resting-edge cleanup: head-on, the sheet's perspective scale leaves
+   a ~2px sliver of the face's painted band exposed along both sides,
+   and the photo-carrying walls can show a faint antialiased seam even
+   edge-on — together they read as a dark clip against the white slab
+   when the tile is flat. Two moves, both released on hover before the
+   tilt opens the side: a cover plane just above the face repaints
+   paper over the slivers, and the painted walls sit at opacity 0
+   until the tilt needs them. */
+.project .card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  transform: translateZ(2px);
+  background-image:
+    linear-gradient(180deg, #f3f6fb 0%, #e6ecf5 100%),
+    linear-gradient(180deg, #edf2f9 0%, #dee5f0 100%);
+  background-size:
+    3px calc(var(--visual-h) + var(--edge-drop)),
+    3px calc(var(--visual-h) + var(--edge-drop));
+  background-position:
+    0 var(--sheet-gap),
+    100% var(--sheet-gap);
+  background-repeat: no-repeat;
+  transition: opacity 0.25s ease;
+}
+
+/* Hidden flat-out everywhere (on touch the tilt never fires, so the
+   walls are never usefully visible); hover-capable pointers fade them
+   in with the tilt */
+.project .card__edge--left,
+.project .card__edge--right {
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .project:hover .card__edge--left,
+  .project:hover .card__edge--right {
+    opacity: 1;
+  }
+
+  .project:hover .card::after {
+    opacity: 0;
+  }
 }
 
 .project .card__edge--top {
@@ -126,7 +271,7 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  margin: 8px;
+  margin: var(--sheet-gap);
   border-radius: calc(var(--card-radius) - 4px);
   overflow: hidden;
   transform: translate3d(0, 0, 26px);
@@ -149,7 +294,7 @@
 /* --- Drawing sheet header ------------------------------------ */
 .project__visual {
   position: relative;
-  height: 210px;
+  height: var(--visual-h);
   flex-shrink: 0;
   overflow: hidden;
   background: linear-gradient(150deg, var(--navy-600) 0%, var(--navy) 42%, var(--ink) 100%);
@@ -318,10 +463,7 @@
   .project .card {
     --card-radius: 28px;
     --card-depth: 14px;
-  }
-
-  .project__visual {
-    height: 180px;
+    --visual-h: 180px;
   }
 
   .project__no {

@@ -89,6 +89,13 @@
   height: 100%;
 }
 
+/* ---------- Glass-box diorama tiles ---------- */
+/* Every carousel tile wears the shared glass-box skin (.card--glass in
+   styles/elements/card.css, applied via the Card's className in
+   Services.jsx) — the clear display case with the scene recessed against
+   the back pane. About's value tiles wear the same skin. Only the
+   carousel-specific behaviour of the tiles lives below. */
+
 /* The tilt is triggered by hovering the slide's (static) box, not the
    card itself — a tilting card moves out from under the pointer and
    re-triggers in a flicker loop when approached from the edges that

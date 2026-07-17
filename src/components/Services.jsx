@@ -180,6 +180,7 @@ export default function Services() {
         slides={services.map((s) => (
           <Card
             key={s.title}
+            className="card--glass"
             image={s.image}
             imagePosition={s.imagePosition}
             imageAlt={s.imageAlt}

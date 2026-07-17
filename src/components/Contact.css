@@ -5,8 +5,7 @@
    behind an info column and a white form card. The card is
    styled as a drawing sheet in its own right — thin frame lines
    and a monospace title block echoing the hero (Hero.css).
-   Sits between the navy Safety band above and the darker
-   footer below.
+   Sits above the darker footer below.
    ============================================================ */
 .contact {
   position: relative;

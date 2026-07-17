@@ -196,6 +196,5 @@ export const nav = [
   { label: 'Projects', href: '#projects' },
   { label: 'About', href: '#about' },
   { label: 'Process', href: '#process' },
-  { label: 'Safety', href: '#safety' },
   { label: 'Contact', href: '#contact' },
 ]

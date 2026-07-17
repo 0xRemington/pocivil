@@ -10,17 +10,24 @@
 
 /* Each rounded corner is wrapped in depth by short strips whose top
    edges chord the corner arc, folded back 90° through --card-depth.
-   Five segments keep the chord within ~0.6px of the true curve.
+   Nine segments keep the chord within ~0.2px of the true curve.
+   Strip anchors sit exactly on the arc vertices, so neighbours butt
+   along a shared edge; the overlength tolerance below only has to
+   swallow rasterisation rounding. It must stay subpixel: translucent
+   skins (Services' glass box) composite any real overlap into a
+   visible double-density seam, while opaque skins would show a bright
+   gap line if strips fell short. At 1.5% of a chord it is ~0.13px at
+   the largest radius — invisible both ways.
    Positions are in units of --card-radius so the same geometry serves
    every size and breakpoint; computed once at module load. */
-const CORNER_SEGMENTS = Array.from({ length: 5 }, (_, k) => {
-  const a0 = (k * Math.PI) / 10
-  const a1 = ((k + 1) * Math.PI) / 10
+const SEGMENT_COUNT = 9
+const CORNER_SEGMENTS = Array.from({ length: SEGMENT_COUNT }, (_, k) => {
+  const a0 = (k * Math.PI) / (2 * SEGMENT_COUNT)
+  const a1 = ((k + 1) * Math.PI) / (2 * SEGMENT_COUNT)
   return {
     left: 1 - Math.sin(a1),
     top: 1 - Math.cos(a1),
-    // 5% overlength so neighbouring strips overlap instead of seaming
-    width: 2 * Math.sin((a1 - a0) / 2) * 1.05,
+    width: 2 * Math.sin((a1 - a0) / 2) * 1.015,
     rotate:
       (Math.atan2(Math.cos(a1) - Math.cos(a0), Math.sin(a1) - Math.sin(a0)) * 180) / Math.PI,
   }

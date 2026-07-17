@@ -45,8 +45,16 @@ export default function Projects() {
           {/* Static stage per tile: it holds the perspective and the hover
               trigger, so the tilting slab card inside doesn't slide out from
               under the pointer — see the note in Services.css */}
+          {/* --project-image hands the photo to Projects.css, which paints
+              its edge sliver onto the slab's side walls along the stretch
+              that lines up with the drawing header — the hover tilt then
+              shows the image running through the block's thickness */}
           {projects.map((p, i) => (
-            <div className="project" key={p.title} style={{ '--accent-project': p.accent }}>
+            <div
+              className="project"
+              key={p.title}
+              style={{ '--accent-project': p.accent, '--project-image': `url(${p.image})` }}
+            >
               <Card>
                 {/* Visual reads as a drafting sheet: fine grid, thin frame, a
                     plan-view detail number, and a title-block bar carrying the

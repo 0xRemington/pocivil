@@ -119,6 +119,52 @@
     rgba(9, 24, 46, 0.45) 0 22px 26px -8px;
 }
 
+/* ---------- Glass-box diorama skin ---------- */
+/* The in-focus look of the services carousel tiles, also worn by About's
+   value tiles. The slab becomes a clear display case: the front face goes
+   transparent and the photo drops to the BACK pane, so any tilt produces
+   real parallax between the glass rim and the recessed scene, and looking
+   through a clear side wall shows that same photo in true perspective, the
+   way a real glass box would. Skin-agnostic — it rides on top of whatever
+   skin the tile already wears (navy on services, amber on about) and only
+   overrides the walls to clear glass, so it must follow .card--amber in
+   source order to win those equally-specific overrides. */
+.card--glass {
+  /* A deeper box: visible air between the glass front and the scene */
+  --card-depth: 30px;
+
+  /* Clear glass: the walls are soft streaks of caught light — bright
+     toward the top-left, smoked toward the bottom-right — that fade to
+     nothing at both ends, before they reach the corners. What you see
+     through a wall is the real recessed photo rendered in perspective,
+     not a painted slice. */
+  --card-wall-top: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.45) 22%, rgba(230, 240, 250, 0.26) 60%, rgba(230, 240, 250, 0) 100%);
+  --card-wall-left: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 22%, rgba(222, 234, 247, 0.22) 60%, rgba(222, 234, 247, 0) 100%);
+  --card-wall-right: linear-gradient(180deg, rgba(230, 240, 250, 0) 0%, rgba(230, 240, 250, 0.22) 30%, rgba(205, 220, 238, 0.12) 65%, rgba(205, 220, 238, 0) 100%);
+  --card-wall-bottom: linear-gradient(90deg, rgba(222, 234, 247, 0) 0%, rgba(222, 234, 247, 0.16) 30%, rgba(205, 220, 238, 0.1) 65%, rgba(205, 220, 238, 0) 100%);
+}
+
+/* No corner glass at all. A translucent faceted arc can never read smooth:
+   each strip sits at its own angle to the eye, so each one projects a
+   different density however precisely they align — the facets ARE the
+   segmentation. Clear glass shows nothing at a rounded corner anyway, and
+   the wall streaks above fade out before they arrive, so there is no edge
+   left to chip off. */
+.card--glass .card__seg {
+  display: none;
+}
+
+/* Open the front of the case: with the face gradient gone you look
+   straight through the glass-pane swoop into the box */
+.card--glass.card--photo {
+  --card-face: transparent;
+}
+
+/* The scene sits against the back pane, 1px proud of it */
+.card--glass.card--photo .card__photo {
+  transform: translateZ(calc(1px - var(--card-depth)));
+}
+
 /* Photo face (Card.jsx `image` prop — About's value tiles). The photo
    covers the whole face, so the glass swoop reads as a window onto it
    at the top-right and the rest ghosts through the pane. The amber
@@ -162,7 +208,7 @@
 /* Slab thickness: a back face, flat walls along the straight edges,
    and segmented arc strips wrapping each rounded corner (geometry
    computed in Card.jsx) — the tile reads as one closed solid block
-   from any angle it is turned, using ~2 dozen tiny composited planes */
+   from any angle it is turned, using ~40 tiny composited planes */
 .card::before {
   content: '';
   position: absolute;

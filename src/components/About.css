@@ -63,11 +63,13 @@
 }
 
 /* The value tiles are the same slab cards as the services carousel
-   (styles/elements/Card.jsx), wearing the shared amber skin the dark
-   sections use (.card--amber in elements/card.css — the bid-request
-   form wears it too). Each tile's face carries a photo (values[] in
-   data/site.js) that shows through the glass swoop window — see
-   .card__photo in elements/card.css. Only the geometry is set here. */
+   (styles/elements/Card.jsx). They wear two stacked skins: the amber
+   the dark sections use (.card--amber — the bid-request form wears it
+   too) plus the glass-box diorama (.card--glass) that the in-focus
+   services tile wears, so the photo (values[] in data/site.js) sits
+   recessed against the back pane and shows real parallax on the hover
+   tilt. Both skins live in elements/card.css; only the geometry is set
+   here. The box depth is left to .card--glass so the recess reads. */
 .values {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -84,7 +86,6 @@
 
 .value .card {
   --card-radius: 34px;
-  --card-depth: 16px;
 
   flex: 1;
   min-height: 290px;
@@ -131,7 +132,6 @@
 
   .value .card {
     --card-radius: 28px;
-    --card-depth: 14px;
     min-height: 240px;
   }
 

@@ -35,7 +35,7 @@ export default function About() {
           {values.map((v) => (
             <div className="value" key={v.title}>
               <Card
-                className="card--amber"
+                className="card--amber card--glass"
                 image={v.image}
                 imagePosition={v.imagePosition}
                 imageAlt={v.imageAlt}
