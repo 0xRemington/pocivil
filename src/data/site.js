@@ -24,7 +24,7 @@ export const company = {
   email: 'estimating@pokekeheavycivil.com',
   address: '42 Industrial Crescent, Mount Pearl, NL A1N 4S2',
   hours: 'Mon–Fri · 6:00 AM – 6:00 PM',
-  founded: 2004,
+  founded: 2025,
 }
 
 /* image/imagePosition feed the Card photo face — imagePosition steers
